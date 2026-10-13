@@ -1,0 +1,2 @@
+"""Monitoring-first arbitrage framework."""
+

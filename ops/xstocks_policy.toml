@@ -1,0 +1,66 @@
+# xStocks 现货差价策略的**唯一**阈值来源（2026-10-05 operator 定）。
+# 代码只读这个文件，不允许把阈值散落在脚本里。
+# 任何一项要改，都先问 operator。
+
+[trade]
+per_trade_quote_usdt = "25"     # 单笔上限（等值）；实际每笔 = min(上限, 阶梯上仍便宜的最大档)
+                                # operator 2026-10-06：10 → 25
+min_net_profit_usdt  = "0.1"    # 净利门槛，低于这个数不买
+max_risk             = "低"     # 只做风险「低」的机会（看板 risk 列，按买入成本 % 分档）
+max_slippage_bps     = 10       # 链上滑点容忍
+jito_tip_lamports    = 1000000  # 防夹小费
+
+[exit]
+# 卖出前必须成立的出口条件（src/arb_monitor/venues/kraken_exit_gate.py）
+require_pair_online  = true     # Kraken 必须有这个交易对且在册
+max_book_slip_bps    = "50"     # 我们的数量不能把 50 bps 内的买盘吃掉超过 max_book_share
+max_book_share       = "0.2"
+maker_first          = true     # 先挂单（拿 -2 bps 返佣），超时才吃单
+maker_timeout_s      = 600
+min_price_vs_ref     = "0.995"  # 卖出价不得低于基准价的 99.5%
+
+[capital]
+withdraw_threshold_usdg = "100" # Kraken 侧 USDG 累计到 100 才提币（一次 1 USDG 固定费）
+solana_swap_mint        = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"  # USDC
+solana_usdt_mint        = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"  # USDT
+
+[limits]
+# 状态机硬约束
+one_cycle_at_a_time = true      # 同时只允许一笔在飞
+unknown_state_action = "stop"   # 状态未知就停，不重试、不猜
+# 自动链的额度与熔断（operator 2026-10-06）
+daily_open_quote_usdt = "500"   # 日累计开仓上限
+daily_trades_max      = 20      # 每天最多几笔
+loss_alert_trades     = 1       # 一笔亏损就告警（并触发 LLM 检查）
+loss_pause_trades     = 2       # 连续两笔净亏 → 软暂停，等人处理
+
+[execution]
+# 两把钥匙 + live_ack：**只有 operator 能改**（AGENTS.md）。
+# 自动链启动时读这里；auto_orders=off 时只做只读巡检。
+mode        = "off"
+auto_orders = "off"
+live_ack    = ""
+
+[treasury]
+# 回款与两链资金目标（operator 2026-10-06：链上 50U；不做自动跨链调配，缺钱只告警）
+asset               = "USDT"    # 从 Kraken 提回链上的资产
+withdraw_key        = "soltee1" # Kraken 提币地址簿 key（USDT - Solana，已验证）
+solana_target_usdt  = "50"      # Solana 钱包目标库存
+solana_floor_usdt   = "25"      # 低于这个值：告警，并跳过买入
+xlayer_target_usdg  = "40"      # X Layer 钱包目标（本阶段不自动执行，只看）
+xlayer_floor_usdg   = "20"
+kraken_min_before_withdraw = "51.3"   # 链上不足 + Kraken 至少这么多才提（含提币费）
+withdraw_fee_usdt   = "1.2345"  # 实测：USDT - Solana
+
+[watch]
+snapshot_max_age_s = 360        # 看板快照超过这个秒数就当过期，不信
+poll_interval_s    = 45         # 主循环间隔
+sol_min_alert      = "0.01"     # Solana 钱包 SOL 低于这个：告警（不自动补）
+
+[costs]
+# 实测成本（docs/lessons §2.2：以前把 0.000015 当成全部转账费，错两个数量级）
+buy_fee_sol           = "0.000105"   # 两跳兑换的链上费（实测）
+transfer_first_sol    = "0.00313"    # 首次给某标的转账：含对方账户租金（不可退）
+transfer_repeat_sol   = "0.000015"   # 该标的已建过账户：只剩基础费
+token_rent_sol        = "0.00156"    # 我们自己的代币账户租金（关账户可退，单列不重复扣）
+kraken_taker_bps      = "10"         # Kraken xStocks taker 费率

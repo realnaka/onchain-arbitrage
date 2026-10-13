@@ -1,0 +1,82 @@
+name: auto-merge
+
+# Merge a pull request only after the ci workflow on main has already passed.
+# The definition that runs is the one on main, so a pull request cannot edit
+# this job to skip the tests. The first pull request that adds this file has
+# to be merged by hand; workflow_run does not use a workflow that exists only
+# on the pull-request branch.
+on:
+  workflow_run:
+    workflows: ["ci"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: squash merge into main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -eu
+          # This job has no checkout on purpose: the merge is one API call, and
+          # nothing here should be able to touch a working tree. Every gh call
+          # therefore has to be told which repository to use -- without -R, gh
+          # infers it from a git remote that does not exist and dies with
+          # "failed to run git: fatal: not a git repository", which is exactly
+          # how the first real pull request failed to auto-merge on 2026-10-10.
+          repo="${GITHUB_REPOSITORY}"
+          number=$(gh api "/repos/${repo}/commits/${HEAD_SHA}/pulls" --jq '.[0].number')
+          if [ -z "${number}" ] || [ "${number}" = "null" ]; then
+            echo "no pull request for ${HEAD_SHA}"
+            exit 0
+          fi
+          # One REST call carries every field this guard needs. `gh pr view
+          # --json headRepository` is not usable here: that export serialises
+          # `nameWithOwner` as an empty string (measured 2026-10-10), so the
+          # fork check read "pr N is from ; not merging" and the job exited 0
+          # without merging anything -- a silent no-op that still looked green.
+          view=$(gh api "/repos/${repo}/pulls/${number}" --jq \
+                   '{state:.state, draft:.draft, head:.head.ref, head_repo:.head.repo.full_name, base:.base.ref}')
+          state=$(echo "${view}" | jq -r .state)
+          draft=$(echo "${view}" | jq -r .draft)
+          same=$(echo "${view}" | jq -r .head_repo)
+          head=$(echo "${view}" | jq -r .head)
+          base=$(echo "${view}" | jq -r .base)
+          if [ "${state}" != "open" ]; then
+            echo "pr ${number} is ${state}"
+            exit 0
+          fi
+          if [ "${draft}" = "true" ]; then
+            echo "pr ${number} is a draft"
+            exit 0
+          fi
+          if [ "${same}" != "${repo}" ]; then
+            echo "pr ${number} is from ${same}; not merging"
+            exit 0
+          fi
+          if [ "${base}" != "main" ]; then
+            echo "pr ${number} targets ${base}"
+            exit 0
+          fi
+          # ``gh pr merge --delete-branch`` tries to delete the *local* branch
+          # too, which needs a checkout this job does not have. Merge and delete
+          # over the API instead, and say what happened either way.
+          sha=$(gh api --method PUT "/repos/${repo}/pulls/${number}/merge" \
+                  -f merge_method=squash --jq '.merge_commit_sha // .sha')
+          echo "pr ${number} squash-merged as ${sha}"
+          if gh api --method DELETE "/repos/${repo}/git/refs/heads/${head}" >/dev/null 2>&1; then
+            echo "deleted ${head}"
+          else
+            echo "kept the head branch ${head}"
+          fi

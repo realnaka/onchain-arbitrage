@@ -1,0 +1,59 @@
+# Explicit quote semantics. Do not compare raw prices across rows with
+# different semantics. Gate/Binance remain fallback TODO until their APIs are
+# tested in a later phase.
+
+[[rules]]
+asset = "XIAOMI"
+venue = "okx"
+instrument = "XIAOMI-USDT-SWAP"
+semantic = "usd_convert_to_hkd"
+enabled = true
+status = "price_probe_pending"
+
+[[rules]]
+asset = "XIAOMI"
+venue = "gate"
+instrument = "XIAOMI_USDT"
+semantic = "usd_convert_to_hkd"
+enabled = false
+status = "fallback_todo"
+
+[[rules]]
+asset = "XIAOMI"
+venue = "binance"
+instrument = "HK1810USDT"
+semantic = "hkd_absolute"
+enabled = false
+status = "fallback_todo"
+
+[[rules]]
+asset = "TENCENT"
+venue = "binance"
+instrument = "HK0700USDT"
+semantic = "hkd_absolute"
+enabled = false
+status = "fallback_todo"
+
+[[rules]]
+asset = "TENCENT"
+venue = "binance"
+instrument = "TENCENTUSDT"
+semantic = "usd_convert_to_hkd"
+enabled = false
+status = "fallback_todo"
+
+[[rules]]
+asset = "TENCENT"
+venue = "gate"
+instrument = "TENCENTHKD_USDT"
+semantic = "hkd_absolute"
+enabled = false
+status = "fallback_todo"
+
+[[rules]]
+asset = "TENCENT"
+venue = "gate"
+instrument = "TENCENT_USDT"
+semantic = "usd_convert_to_hkd"
+enabled = false
+status = "fallback_todo"

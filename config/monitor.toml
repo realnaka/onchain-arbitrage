@@ -1,0 +1,18 @@
+[monitor]
+quote_asset = "USDT"
+min_net_edge_bps = 12
+min_net_profit_quote = 0.50
+max_signal_age_ms = 1500
+signal_cooldown_ms = 3000
+max_notional_quote = 500
+
+[costs]
+buy_fee_bps = 10
+sell_fee_bps = 10
+slippage_buffer_bps = 3
+failure_buffer_bps = 2
+
+[venues]
+# 第一阶段只启用少量 venue；具体适配器接入后再打开。
+enabled = ["demo_buy", "demo_sell"]
+

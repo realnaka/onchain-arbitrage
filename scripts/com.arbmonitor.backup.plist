@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- NOT INSTALLED BY DEFAULT. macOS TCC denies launchd agents access to
+       ~/Documents, so this job fails with "Operation not permitted" unless
+       /bin/zsh is granted Full Disk Access first. See docs/ci-2026-10-09.md
+       ("为什么不是每 15 分钟自动跑"). The working path is
+       .githooks/post-commit -> scripts/auto-backup.sh. -->
+  <key>Label</key>
+  <string>com.arbmonitor.backup</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/home/operator/Documents/arb/scripts/auto-backup.sh</string>
+  </array>
+  <!-- Every 15 minutes: push commits that exist, snapshot the working tree. -->
+  <key>StartInterval</key>
+  <integer>900</integer>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/home/operator/Documents/arb/data/auto-backup.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/home/operator/Documents/arb/data/auto-backup.err.log</string>
+</dict>
+</plist>

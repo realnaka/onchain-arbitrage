@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  DISABLED PERMANENTLY on 2026-10-06 by operator instruction（"hk 监控不用重启" +
+  "com.arbmonitor.hk 要永久停掉"）。The installed copy was renamed to
+  ~/Library/LaunchAgents/com.arbmonitor.hk.plist.disabled-20261006, so launchd no
+  longer loads it at login.
+
+  This template is kept for reference only. Do not copy it back without an
+  explicit operator request: as documented in docs/hk-basis.md, launchd-spawned
+  processes cannot read ~/Documents on this machine, so this agent fails 100% of
+  the time (observed 2026-10-06: runs=9, last exit code 127,
+  "/bin/zsh: can't open input file: …/run_hk_monitor.sh"). The working way to run
+  the sampler is scripts/hk-monitor-ctl.sh start, and that is parked too.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.arbmonitor.hk</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/home/operator/Documents/arb/scripts/run_hk_monitor.sh</string>
+    <string>60</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>ARB_HTTP_PROXY</key>
+    <string>http://127.0.0.1:4780</string>
+  </dict>
+  <key>WorkingDirectory</key>
+  <string>/home/operator/Documents/arb</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/home/operator/Documents/arb/data/logs/hk-monitor.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/home/operator/Documents/arb/data/logs/hk-monitor.err.log</string>
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

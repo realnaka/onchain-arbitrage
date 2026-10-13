@@ -1,0 +1,455 @@
+# Hard limits for unattended execution. Values are deliberately conservative.
+[execution]
+mode = "off"
+# Unattended execution is gated by **two** independent keys, both of which have
+# to be set deliberately before the monitor loop is allowed to place an order by
+# itself:
+#   mode        = "preauthorized_program"   ← the program is allowed to sign
+#   auto_orders = "paper" | "live"          ← and this is what it may do
+# "paper" uses the live quotes and the live cost model but moves no money;
+# "live" is the real thing. Anything else (including the default "off") leaves
+# the monitor read-only, which is what it has been until now.
+# Step 2 of 2, enabled by the operator on 2026-09-16 (see `live_ack` below).
+# History: this ran as "paper" (real quotes, real risk, real ledger, no money)
+# from 2026-09-16 morning until the P0 remediation in
+# docs/p0-remediation-2026-09-16.md closed the five "half-finished trade looks
+# finished" paths. Rolling back is one edit: set this to "paper".
+auto_orders = "off"
+auto_max_per_cycle = 1
+# Who runs the execution body (2026-09-21, stability round stage 3).
+#   "inline" — the historical shape: the sampling cycle calls
+#              `maybe_execute` / `maybe_funding_exit` / `maybe_basis_exit` itself
+#              and waits out any maker-first order. A resting open waits up to
+#              `maker_timeout_seconds` (120 s) and a resting close up to
+#              `maker_close_timeout_seconds` (600 s), so during that window the
+#              monitor writes no run summary and ages every order book.
+#   "worker" — the same three calls run on `execution/worker.py`'s single serial
+#              thread, over a bounded, priority-ordered, deduplicated queue.
+#              Exits outrank entries and an exit is never evicted to make room
+#              for an open; a task kind this version does not recognise is
+#              refused rather than guessed at; a dead worker stops new *opens*
+#              (closing stays available) and says so in the summary.
+# The execution semantics do not change: same gates, same risk checks, same
+# 15-second freshness limits, same unknown-write -> AUTO_HALT rule.
+#
+# Set to "worker" by the operator on 2026-09-21 (stability round stage 4): the
+# live chain now runs execution on its own thread, so a resting maker order no
+# longer freezes the sampling loop. Covered by tests/test_execution_worker.py.
+dispatch = "worker"
+# Queue capacity in worker mode. Small on purpose: the monitor re-nominates
+# every cycle, so a backlog is never useful, and "平仓优先于开仓" is enforced at
+# this boundary too.
+worker_max_pending = 2
+# How long `stop` may wait for an in-flight execution task to finish before the
+# process leaves. It waits; it never cancels. An order that was sent stays on the
+# venue — pulling orders on shutdown would be a new way to leave a half-finished
+# hedge, and the maker-first timeout / taker fallback already own that decision.
+# If the wait runs out, the task is written to the ledger as
+# `execution_shutdown_interrupted` and the next start's reconciliation gate
+# (pending orders + unresolved groups, both read from the venue) stops any new
+# open until it is accounted for. Keep this below the stop script's SIGKILL
+# timeout; `scripts/hk-monitor-ctl.sh` waits `grace + 10 s` before forcing.
+shutdown_grace_seconds = 20
+# Live needs two more deliberate values on top of `auto_orders = "live"`:
+#   auto_close_policy — who closes a position. Plan A was set on 2026-09-16
+#     (a human closes, with the funding-cost stop as the one exception).
+#     **Changed by the operator on 2026-09-21**: the program closes on the
+#     basis target too — see `[auto_close]` below. A human is now only for
+#     failures, which is what this project always said it would grow into.
+#   live_ack — the record of who accepted those terms. Empty means `live` is
+#     refused outright (verified in tests/test_auto_execute.py), so this is the
+#     field that turns unattended signing on and off.
+auto_close_policy = "program_close_on_basis_target_plus_funding_cost_stop"
+live_ack = ""
+# Paper fills are modelled money: they are tracked on their own (paper_used) and
+# no longer consume `[limits] daily_quote_usdt`. Measured 2026-09-16: four paper
+# groups had put the live board at 90.252212/100 without moving any money.
+paper_budget_separate = true
+# The unattended executor calls `account-status`'s own snapshot before it acts
+# and refuses to start when `verified` is false.
+require_verified_account = true
+# A basis that clears the bar usually stays above it for a while, so without a
+# cooldown one signal becomes one trade per cycle (measured 2026-09-16: the
+# paper chain fired on the same SHEIN signal at 12:00:25 and again at 12:00:42).
+# The cooldown is per asset, remembered in memory for the running loop and read
+# back from the ledger after a restart.
+auto_cooldown_seconds = 900
+# Any unknown state (an order that cannot be read, a spot leg that did not
+# confirm) writes this file and stops all further automated execution until a
+# human reconciles the ledger and deletes it. The lock file makes an execution
+# exclusive, so two processes can never act on the same signal.
+auto_halt_file = "data/AUTO_HALT"
+auto_lock_file = "data/auto_execute.lock"
+spot_must_confirm_before_hedge = true
+unknown_state_action = "stop_and_reconcile"
+kill_switch_file = "data/KILL_SWITCH"
+
+[allowlist]
+# Every HK token that is live on X Layer (real pool) AND has a perpetual to
+# hedge with. Each one was verified on 2026-09-16 the same way XIAOMI was:
+#   issuer docs 1:1 collateralisation → token ISIN → underlying HK ISIN,
+#   wrapper.totalSupply() == native.balanceOf(wrapper),
+#   native multiplier() == 1.0, venue ctVal=1 / ctMult=1.
+# Run `scripts/verify_hk_allowlist.py` and
+# `arb_monitor mapping-verify --asset <ASSET>` to re-check.
+assets = [
+  "XIAOMI",
+  "TENCENT",
+  "POPMART",
+  "MEITUAN",
+  "KUAISHOU",
+  "SHEIN",
+  "AAPL",
+  "AMD",
+  "AMZN",
+  "ASML",
+  "AVGO",
+  "BMNR",
+  "COIN",
+  "CRCL",
+  "CRWV",
+  "DELL",
+  "EWY",
+  "GME",
+  "GOOGL",
+  "HOOD",
+  "IBM",
+  "INTC",
+  "IREN",
+  "IWM",
+  "KO",
+  "META",
+  "MRK",
+  "MRNA",
+  "MRVL",
+  "MSFT",
+  "MSTR",
+  "MU",
+  "NBIS",
+  "NVDA",
+  "ORCL",
+  "PLTR",
+  "QQQ",
+  "RDDT",
+  "RKLB",
+  "SKHY",
+  "SMCI",
+  "SNDK",
+  "SPCX",
+  "SPY",
+  "TSLA",
+  "TSM",
+  "WMT",
+]
+chains = ["196"]
+# Wrapper contracts we may buy. The first six are the original HK names;
+# the rest were signed 2026-09-23 after mapping-verify passed.
+spot_tokens = [
+  "0x076cf393e701839fc7a5832d2c68aafa235682ae",  # wXIAOx
+  "0x41333df9e7639188bbfca5522dc4844398af9f9e",  # wTCENTx
+  "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",  # wPOPMTx
+  "0xad1b65c8556957cf23d1b5e9accdc449b415fa97",  # wMEITx
+  "0x096369b9b197bcbf669a3bc827aa119d80d891e4",  # wKUAIx
+  "0xff637d2d435d6745df3faf61272b1216e7e8b727",  # wSHEINx
+  "0x943bf64d566c32a2bcd41ac92fb63c111cc9de8f",  # AAPL
+  "0xee7ccb0d37a12862e7f92f6c92a93d9c2d304266",  # AMD
+  "0x910cabde3eba7fc1ce64fd14bd680b9f60fa0f90",  # AMZN
+  "0x9147b03c16b18fc4f686f610f189f91ddf4347b4",  # ASML
+  "0xe89572bfe500ac7e8ecd8dc8119d274214e06f14",  # AVGO
+  "0xdad5623b32c81aeaa75478fcfe934e9e97018c58",  # BMNR
+  "0x44c7ed7ffdf8465c9d27f60aec845eed3d49d56e",  # COIN
+  "0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8",  # CRCL
+  "0xadf63a79c9813a8e0c4d1d334ebdfaeef04bdf98",  # CRWV
+  "0x04db4384013664baa627c1a3fa4ff0c50f37cfd3",  # DELL
+  "0x021b40617982074748c81a19d22046cc2548c3be",  # EWY
+  "0x459d3ae62b86cc6125e06260dddfd3afed24a877",  # GME
+  "0xf8c5308f80e459bb53d9ebe689854d9cbb2caa6f",  # GOOGL
+  "0x59801175a9b2248f9bf4ba7f82e17045c4672ec8",  # HOOD
+  "0xbf69d85055642a9c6450bdfde3c49baac50f8286",  # IBM
+  "0x33aa35b0271fffe2048cc093ab7fe60931786719",  # INTC
+  "0xb3a16db475a9cb321fc8956aa2cb01385a022e75",  # IREN
+  "0x25d218f19b706c8680aa26fb64e676cf84b58f65",  # IWM
+  "0xe4784b45415aac58b289f9373314261c788c91e8",  # KO
+  "0xe840946ffebcd66b7c4e95095effafadfa0d0e56",  # META
+  "0x7d218d8a2ab4c1f03fdd7b655b4e724d48200050",  # MRK
+  "0xce0fbc16e820ab7fd6d2936f1533c2654ad49ae9",  # MRNA
+  "0xb4ee60b6b817ca7386422ef1a0f45eaddea13275",  # MRVL
+  "0x166fbe68274b6a47e025f4ba17388c539f1fa1d0",  # MSFT
+  "0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab",  # MSTR
+  "0xe2047ee3bddb5c99ae428ab83df63f8730698e30",  # MU
+  "0x43a7b7acfae969b0682e56142b52e63e07d59b7d",  # NBIS
+  "0xa8ddb5cd96b5222afe198316e9a57caa642850d5",  # NVDA
+  "0x1349456830ddc3d8599e4d6a63698883eca67ada",  # ORCL
+  "0x4a2df09536f62341c9f946427d16414c04e21342",  # PLTR
+  "0x4c1ae29c159838fc1b224636e28e086eb69101f7",  # QQQ
+  "0x9ed51b856159c7cf26c1ece673abd248f21bcc9e",  # RDDT
+  "0x5aa45cf9d8c8555c9a76cf0207519501c227a235",  # RKLB
+  "0x6215a58ed045d71f2561aaabe54f4c885c522998",  # SKHY
+  "0xd89556e08fdc04e5a2d9344eb06568a043001166",  # SMCI
+  "0x75e82e2884ea10f72fca777449b73377f4646219",  # SNDK
+  "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072",  # SPCX
+  "0xe7e553cd128f0011777323a0b44a7b96ea1cb540",  # SPY
+  "0xc3fdbe3a68ee5de461d30415a8165cf9aefe1171",  # TSLA
+  "0x27d62249488fc66ecbb92c8da3f56f700b8e8501",  # TSM
+  "0x3b4336e3958913984c2e36b8ed0e7c87a5bdee33",  # WMT
+]
+quote_tokens = [
+  "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8",  # USDG, wallet balance
+  "0xb6ceceab302e2e4948951ee7843fc24e92933061",  # USDC
+]
+# Execution venues are limited to what has a reviewed, wired adapter. Gate and
+# Binance are monitoring-only until their adapters exist: an order to a venue we
+# cannot query back is an unknown write, which this project never accepts.
+venues = ["okx"]
+instruments = [
+  "XIAOMI-USDT-SWAP",
+  "SHEIN-USDT-SWAP",
+  "POPMART-USDT-SWAP",
+  "AAPL-USDT-SWAP",
+  "AMD-USDT-SWAP",
+  "AMZN-USDT-SWAP",
+  "ASML-USDT-SWAP",
+  "AVGO-USDT-SWAP",
+  "BMNR-USDT-SWAP",
+  "COIN-USDT-SWAP",
+  "CRCL-USDT-SWAP",
+  "CRWV-USDT-SWAP",
+  "DELL-USDT-SWAP",
+  "EWY-USDT-SWAP",
+  "GME-USDT-SWAP",
+  "GOOGL-USDT-SWAP",
+  "HOOD-USDT-SWAP",
+  "IBM-USDT-SWAP",
+  "INTC-USDT-SWAP",
+  "IREN-USDT-SWAP",
+  "IWM-USDT-SWAP",
+  "KO-USDT-SWAP",
+  "META-USDT-SWAP",
+  "MRK-USDT-SWAP",
+  "MRNA-USDT-SWAP",
+  "MRVL-USDT-SWAP",
+  "MSFT-USDT-SWAP",
+  "MSTR-USDT-SWAP",
+  "MU-USDT-SWAP",
+  "NBIS-USDT-SWAP",
+  "NVDA-USDT-SWAP",
+  "ORCL-USDT-SWAP",
+  "PLTR-USDT-SWAP",
+  "QQQ-USDT-SWAP",
+  "RDDT-USDT-SWAP",
+  "RKLB-USDT-SWAP",
+  "SKHY-USDT-SWAP",
+  "SMCI-USDT-SWAP",
+  "SNDK-USDT-SWAP",
+  "SPCX-USDT-SWAP",
+  "SPY-USDT-SWAP",
+  "TSLA-USDT-SWAP",
+  "TSM-USDT-SWAP",
+  "WMT-USDT-SWAP",
+]
+wallets = ["0xabababababababababababababababababababab"]
+
+[monitoring_allowlist]
+# What the monitor is allowed to screen (broader than execution: these are read
+# only). `usd` contracts are compared directly; `hkd` contracts must be divided
+# by the reviewed USD/HKD snapshot, so they stay out of the executable set until
+# that rate is trustworthy at the precision the edge needs (see fx.sqlite).
+usd_instruments = [
+    "okx:XIAOMI-USDT-SWAP", "okx:SHEIN-USDT-SWAP", "okx:POPMART-USDT-SWAP",
+    "gate:XIAOMI_USDT", "gate:KUAISHOU_USDT", "gate:MEITUAN_USDT",
+    "gate:POPMART_USDT", "gate:SHEIN_USDT", "gate:TENCENT_USDT",
+    "binance:MEITUANUSDT", "binance:POPMARTUSDT", "binance:TENCENTUSDT",
+    # Bybit / Bitget (added 2026-09-16): monitored for comparison only. Both
+    # cover all six assets; neither has an execution adapter, so any candidate
+    # they produce is announced with "不可执行" and cannot become an order.
+    "bybit:XIAOMIUSDT", "bybit:TENCENTUSDT", "bybit:POPMARTUSDT",
+    "bybit:MEITUANUSDT", "bybit:KUAISHOUUSDT", "bybit:SHEINUSDT",
+    "bitget:XIAOMIUSDT", "bitget:TENCENTUSDT", "bitget:POPMARTUSDT",
+    "bitget:MEITUANUSDT", "bitget:KUAISHOUUSDT", "bitget:SHEINUSDT",
+    # Aster / Hyperliquid / Lighter (added 2026-09-17, read-only): perp DEX
+    # venues, none with an execution adapter. Two shapes of symbol appear here
+    # because the venues name their markets differently — Aster and Lighter use
+    # the ticker or the market id, Hyperliquid prefixes the dex ("xyz:SHEIN").
+    "aster:XIAOMIUSDT", "aster:TENCENTUSDT", "aster:POPMARTUSDT",
+    "aster:MEITUANUSDT", "aster:KUAISHOUUSDT",
+    "hyperliquid:xyz:SHEIN",
+    "lighter:203", "lighter:201", "lighter:204", "lighter:230",
+]
+hkd_instruments = [
+  "binance:HK1810USDT", "binance:HK0700USDT",
+  "gate:XIAOMIHKD_USDT", "gate:TENCENTHKD_USDT",
+]
+
+[limits]
+# Gray-scale ceiling, raised 2026-09-17 (operator): "灰度单笔上限 10 USD改为100USD".
+#
+# Why it changed: the venue tally showed every opportunity in the window clearing
+# 20 bps but *none* reaching the project's own `min_net_profit_quote = 1` USDT —
+# the best one (gate KUAISHOU, 217 bps) is worth 0.217 USDT on a 10 USDT position.
+# The measured notional needed to reach 1 USDT of profit was ≈83 (gate) / 91
+# (bitget) / 94 (bybit) / 873 (okx, whose edges sit near the threshold).
+# See docs/venue-opportunity-scoreboard-2026-09-16.md §3.5.
+#
+# The number is a CEILING, not a share count. The size of a trade is the largest
+# whole-share count whose spend fits inside it AND inside the wallet balance —
+# so at XIAOMI ≈3.35 this is 29 shares (≈98 USDG), and a cheaper share buys more.
+# It is also bounded by the wallet: the X Layer leg pays from the same balance.
+# Operator 2026-09-24: each stock trade is at most 10 USDT on the spot buy
+# and at most 10 USDT of hedge notional. Was 100.
+per_trade_quote_usdt = "10"
+# Daily ceiling 50 (operator, 2026-09-16): up to ~5 such trades a day, or fewer
+# when each is larger. Counts *real* buy fills only; paper sits in
+# paper_used_quote. Today's real spend (60.804037, the manual live round trips
+# plus the drill) already exceeds it, so the unattended chain stays idle until
+# 00:00 HKT — the quota is a gate for the machine, not for a human at the CLI.
+#
+# Raised 50 -> 1000 (operator, 2026-09-17: "daily_quote_usdt改为1000"). The old
+# 50 was below the new per-trade ceiling of 100, and the gate is
+# `spent + size_quote > daily_cap -> refuse` (auto_execute.py:391), so 0 + 100 >
+# 50 refused every trade. 1000 is the operator's number, not a derived one.
+#
+# Note what actually binds first: the *wallet*. X Layer's USDG balance was 10.92
+# on 2026-09-17 and the entry size is min(ceiling, wallet x 0.999), so the real
+# per-trade size is ~10.9 until the operator funds it (their call: "钱包先不动，
+# 你先统计信号，信号足够了再加钱"). The daily cap is therefore not the binding
+# constraint yet — this raise makes it stop being a *contradiction*.
+daily_quote_usdt = "1000"
+max_slippage_bps = "50"
+max_unhedged_tokens = "0"
+# How much unhedged *long* dust one entry may leave behind, in bps of the hedged
+# token count. The exact-in route is sized to deliver at least N shares, so it
+# usually delivers a hair more (measured 2026-09-16: 0.000752 shares on 3, i.e.
+# 2.5 bps). The other direction — fewer tokens than the contracts need, a naked
+# short — has no tolerance and halts at any size.
+max_unhedged_bps = "5"
+# Operator 2026-09-24: long dust at or under this cash value is still hedged.
+# The shortfall direction (spot < contracts) has no cash tolerance.
+max_unhedged_quote_usdt = "0.5"
+max_open_contracts = "1"
+quote_ttl_seconds = 300
+
+[orders]
+# Maker-first (changed 2026-09-16 on the operator's instruction).
+#
+# Measured: the perpetual's bid/ask spread is the dominant cost of a round trip
+# — 41 bps per side on SHEIN-USDT-SWAP, up to 48 bps on XIAOMI when the book is
+# thin — because one tick is 0.01 and 0.001 against a price of ~4.8 and ~3.36.
+# Crossing it twice cost more than every fee plus the whole on-chain spread.
+# Resting on the offer earns that spread and collects the maker rebate
+# (-1.6 bps on this account) instead of paying the 4.5 bps taker fee.
+#
+# What this changes: the hedge now exists BEFORE the spot leg, which inverts the
+# project's oldest invariant. The naked window is bounded by code —
+# post-only (can never cross), a hard timeout, no chasing, and an immediate
+# taker unwind if the spot leg fails.
+style = "maker_first"
+# Operator 2026-09-24: opens use 1x. The account default had been 3x.
+open_leverage = "1"
+perp_order_type = "post_only"
+perp_price_source = "best_ask"
+perp_max_slippage_bps = "20"
+allow_maker_orders = true
+allow_resting_orders = true
+# Bounds on the resting order. These are the price of the saving.
+# Waiting is the cost of the saving. Measured 2026-09-16: a 3-contract offer at
+# the touch went unfilled for 16s in a quiet book. This is the knob that trades
+# "spread paid" against "position never opened".
+maker_timeout_seconds = 120
+maker_poll_seconds = 1
+# Operator's decision, 2026-09-16: "以后保持只挂单、不成交就算了". Opening has NO
+# taker fallback on purpose — measured 2026-09-16 17:36/17:39, two live attempts
+# rested the offer, were pulled as would-cross three times each, and ended as
+# `maker_unfilled` with filled=0, no spot bought and residual 0. That is the
+# intended outcome: a missed basis is free, a crossed spread is not. (Closing is
+# the opposite — it has a taker fallback — because there the position already
+# exists and must be finished.)
+maker_open_taker_fallback = false
+# Re-join the new best ask when the venue pulls an unfilled post-only order
+# (measured: a price read from the plan arrived below the bid and was cancelled
+# as would-cross). Bounded, and never adverse to the resting price.
+maker_max_reprices = 3
+maker_unwind_on_spot_failure = true
+maker_max_naked_seconds = 90    # spot leg must complete inside this window
+
+# Closing is the same idea with different economics, so it has its own knobs.
+# Measured 2026-09-16 / operator's instruction: when it is time to exit, the
+# spot price and the perpetual price are close to each other and stay that way
+# for a while. There is no reason to hurry, and chasing the bid downward to get
+# filled would hand back the spread the resting order is there to earn.
+maker_close_timeout_seconds = 600      # 10 minutes: how long the bid may rest
+maker_close_fallback = "taker"         # on timeout: cancel, taker buy-back, then sell spot
+maker_close_poll_seconds = 2
+maker_close_max_reprices = 0           # closing never chases; 0 = rest once, then fall back
+# Selling the spot after the perpetual is already flat carries no hedge at all,
+# and the usual reason a sale fails is transport, not the market. So it is
+# retried — 5 times, with a widening pause — before a human is asked.
+# Measured 2026-09-16: a quote call answered `api_failed_or_confirmation_required`
+# once during the day, which is exactly the class of failure this covers.
+# The retry is safe because each attempt re-reads the wallet balance and sells
+# only what is still held, so a lost broadcast cannot be replayed into a
+# double sale.
+close_spot_retry_attempts = 5
+close_spot_retry_backoff_seconds = 2   # attempt 1→2 waits 2s, 2→3 waits 4s, ...
+
+[auto_close]
+# Operator's rule, 2026-09-21 (verbatim):
+#   "我们开仓的时候，应该是要求现货和期货之间的价格差达到 20 个 BPS 的价差才开仓；
+#    平仓的时候，要求这个价差恢复到 3 个 BPS。"
+# The entry half is `[monitor] min_net_edge_bps = 20` and is unchanged.
+# The exit half is executed by the unattended loop through the same reviewed
+# close path the manual CLI uses (`maker_first_close`, reduce-only, taker
+# fallback per `[orders] maker_close_fallback`), with three rails:
+#   * the basis is read on the *execution venue only* — never the best venue in
+#     the table, which would price a trade we cannot make;
+#   * an evaluation carrying a data-quality flag (stale book, non-simultaneous
+#     legs, unverified mapping, expired costs) is an alert, never a close;
+#   * "no observation" is not a signal to close.
+# `target_exit_basis_bps = 3` is the operator's number and it is also what every
+# entry plan already assumes (`assumed_exit_basis_bps`), so the exit realises the
+# basis the entry was priced on.
+enabled = true
+target_exit_basis_bps = "3"
+max_quote_age_ms = 15000
+cooldown_seconds = 300
+
+[funding_exit]
+# Operator's rule, 2026-09-16:
+#   "如果持仓期间资金费率为负（我们持有的空头需要支付资金费率），而支付的资金费
+#    累计达到 1 美元，那么在下一次资金费率收取之前的倒数一分钟，如果仓位还存在，
+#    不管当前套利组合的损益情况，直接平掉仓位。"
+# Negative funding = the short pays (on OKX a positive rate is the short being paid).
+# Once the funding we have actually paid reaches `threshold_quote`, the position is
+# closed unconditionally at `lead_seconds` before the next settlement — this is a
+# cost stop, so it may realise a loss on the basis, on purpose.
+#
+# `threshold_quote` is the operator's number (1 USD) and is not a value this
+# project derived; the paid amount itself is read from the account's own funding
+# bill lines (type=8), never from a model.
+enabled = true
+threshold_quote = "1"
+lead_seconds = 60
+require_negative_rate = true
+
+[approval]
+# Never use unlimited approval. Reuse is allowed only within this cap and after
+# reading allowance back for the current quote spender.
+mode = "bounded_preapproval"
+# 110 -> 101 (operator, 2026-09-18: "把授权改为101USD，避免更多卡住的订单").
+# 101 is the number that has to hold: the per-trade ceiling is 100, so one
+# approval covers any single trade the policy can size and still fails closed
+# above it. Why it matters at all: the allowance was previously whatever a
+# manual run happened to leave behind, and on 2026-09-18 the auto chain spent
+# 10.34 USDG of a 1.006008 USDG remainder — the swap reverted, the perpetual
+# leg had already filled, and the unwind cost 0.0264 USDT. The auto chain still
+# does NOT top this up itself (that would be a new signing authority); it now
+# refuses the candidate before the perpetual order and tells the operator.
+max_allowance_quote = "101"
+require_allowance_readback = true
+require_spender_allowlist = true
+allowance_revoke_after_cycle = false
+
+[network]
+routes = ["http://127.0.0.1:4780", "socks5://127.0.0.1:4781", "direct"]
+read_retries = 2
+write_retries = 0
+unknown_write_action = "query_id_then_stop"

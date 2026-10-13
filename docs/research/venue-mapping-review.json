@@ -1,0 +1,1218 @@
+[
+  {
+    "asset": "AAPL",
+    "cex_identity": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "1",
+      "instrument_id": "AAPLUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AAPL",
+    "cex_identity": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "0.01",
+      "instrument_id": "AAPL_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AAPL",
+    "cex_identity": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "1",
+      "instrument_id": "AAPL-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "cex_identity": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "1",
+      "instrument_id": "AMZNUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "cex_identity": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "0.01",
+      "instrument_id": "AMZN_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "cex_identity": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "1",
+      "instrument_id": "AMZN-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "cex_identity": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "1",
+      "instrument_id": "GOOGLUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "cex_identity": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "0.01",
+      "instrument_id": "GOOGL_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "cex_identity": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "1",
+      "instrument_id": "GOOGL-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "KUAISHOU",
+    "cex_identity": {
+      "base_underlying": "KUAISHOU",
+      "contract_multiplier": "1",
+      "instrument_id": "KUAISHOUUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x096369b9b197bcbf669a3bc827aa119d80d891e4",
+      "symbol": "wKUAIx",
+      "underlying_symbol": "1024"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "KUAISHOU",
+    "cex_identity": {
+      "base_underlying": "KUAISHOU",
+      "contract_multiplier": "1",
+      "instrument_id": "KUAISHOU_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x096369b9b197bcbf669a3bc827aa119d80d891e4",
+      "symbol": "wKUAIx",
+      "underlying_symbol": "1024"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MEITUAN",
+    "cex_identity": {
+      "base_underlying": "MEITUAN",
+      "contract_multiplier": "1",
+      "instrument_id": "MEITUANUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xad1b65c8556957cf23d1b5e9accdc449b415fa97",
+      "symbol": "wMEITx",
+      "underlying_symbol": "3690"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MEITUAN",
+    "cex_identity": {
+      "base_underlying": "MEITUAN",
+      "contract_multiplier": "0.1",
+      "instrument_id": "MEITUAN_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xad1b65c8556957cf23d1b5e9accdc449b415fa97",
+      "symbol": "wMEITx",
+      "underlying_symbol": "3690"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "cex_identity": {
+      "base_underlying": "META",
+      "contract_multiplier": "1",
+      "instrument_id": "METAUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "cex_identity": {
+      "base_underlying": "META",
+      "contract_multiplier": "0.01",
+      "instrument_id": "META_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "cex_identity": {
+      "base_underlying": "META",
+      "contract_multiplier": "1",
+      "instrument_id": "META-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "cex_identity": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "1",
+      "instrument_id": "MSFTUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "cex_identity": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "0.01",
+      "instrument_id": "MSFT_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "cex_identity": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "1",
+      "instrument_id": "MSFT-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "cex_identity": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "1",
+      "instrument_id": "NVDAUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "cex_identity": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "0.01",
+      "instrument_id": "NVDA_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "cex_identity": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "1",
+      "instrument_id": "NVDA-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "cex_identity": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "1",
+      "instrument_id": "POPMARTUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "cex_identity": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "0.1",
+      "instrument_id": "POPMART_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "cex_identity": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "1",
+      "instrument_id": "POPMART-USDT-SWAP",
+      "lot_size": "0.1",
+      "min_size": "0.1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "SHEIN",
+    "cex_identity": {
+      "base_underlying": "SHEIN",
+      "contract_multiplier": "1",
+      "instrument_id": "SHEIN_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xff637d2d435d6745df3faf61272b1216e7e8b727",
+      "symbol": "wSHEINx",
+      "underlying_symbol": "625"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "SHEIN",
+    "cex_identity": {
+      "base_underlying": "SHEIN",
+      "contract_multiplier": "1",
+      "instrument_id": "SHEIN-USDT-SWAP",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0xff637d2d435d6745df3faf61272b1216e7e8b727",
+      "symbol": "wSHEINx",
+      "underlying_symbol": "625"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "cex_identity": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "1",
+      "instrument_id": "HK0700USDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "cex_identity": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "1",
+      "instrument_id": "TENCENTUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "cex_identity": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "0.01",
+      "instrument_id": "TENCENTHKD_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "cex_identity": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "0.1",
+      "instrument_id": "TENCENT_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "cex_identity": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "1",
+      "instrument_id": "TSLAUSDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "cex_identity": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "0.01",
+      "instrument_id": "TSLA_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "cex_identity": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "1",
+      "instrument_id": "TSLA-USDT-SWAP",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "cex_identity": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "HK1810USDT",
+      "lot_size": "0.01",
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "cex_identity": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "0.1",
+      "instrument_id": "XIAOMIHKD_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "cex_identity": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "XIAOMI_USDT",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "cex_identity": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "XIAOMI-USDT-SWAP",
+      "lot_size": "1",
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "chain_identity": {
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "status": "candidate_name_match",
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  }
+]

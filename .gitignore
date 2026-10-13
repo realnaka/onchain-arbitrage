@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+# Anchored on purpose. An unanchored `data/` also matches any nested `data`
+# directory, which silently kept `src/arb_monitor/data/` — ten production
+# modules — out of git. Found 2026-10-09 by exporting HEAD and running the
+# suite: `ModuleNotFoundError: No module named 'arb_monitor.data'`.
+/data/
+# v2 keeps its own runtime data so it never writes v1's books.
+/data-v2/
+# The third-party scanner's own scratch space (21 MB of raw pulls).
+/dexfundingarb/data/
+.playwright-mcp/
+config/notify.env
+config/okx-demo.env
+config/kraken.env
+config/fmp.env
+config/jupiter.env
+config/ton.env
+config/xchange.env

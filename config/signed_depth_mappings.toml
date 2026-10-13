@@ -1,0 +1,1025 @@
+# Signed 2026-09-23 by the operator in the mapping session.
+# Every row passed issuer ISIN + vault reserve + convertToAssets==multiplier + OKX ctVal=1.
+# TER is absent: it is the IBM wrapper mislabeled. Peg (USDG/USDC→USDT) is read live
+# from OKX each cycle and is not stored here. valid_until_ms = 2026-10-23 16:00 UTC.
+
+[[tokens]]
+asset = "AMD"
+name = "AMD xStock"
+stock_symbol = "AMD"
+listing_country = "US"
+symbol = "wAMDx"
+address = "0xee7ccb0d37a12862e7f92f6c92a93d9c2d304266"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x853b01e6626ad3d4e6eaef5edb5ac50e53b1da40", base_address = "0xee7ccb0d37a12862e7f92f6c92a93d9c2d304266", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:AMD-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "AMDx"
+token_symbol = "AMDx"
+token_isin = "CH1473121254"
+underlying_isin = "US0079031078"
+native_address = "0x3522513e5f146a2006e2901b05f16b2821485e19"
+wrapper_address = "0xee7ccb0d37a12862e7f92f6c92a93d9c2d304266"
+perp_value_currency = "AMD"
+evidence = "2026-09-23 operator 签字。发行方 AMDx ISIN CH1473121254 → AMD ISIN US0079031078；wrapper 0xee7ccb0d37a12862e7f92f6c92a93d9c2d304266 convertToAssets(1) = 1 = multiplier()；OKX AMD-USDT-SWAP ctVal=1 ctValCcy=AMD ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "ASML"
+name = "ASML xStock"
+stock_symbol = "ASML"
+listing_country = "US"
+symbol = "wASMLx"
+address = "0x9147b03c16b18fc4f686f610f189f91ddf4347b4"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xc3d659028117f1ae5db9b9c68239b4a71f03ef37", base_address = "0x9147b03c16b18fc4f686f610f189f91ddf4347b4", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:ASML-USDT-SWAP"]
+shares_per_token = "1.0028663344146624"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "ASMLx"
+token_symbol = "ASMLx"
+token_isin = "CH1473121262"
+underlying_isin = "USN070592100"
+native_address = "0xc0b417e7f83db438631eb5e096684dd742e5294f"
+wrapper_address = "0x9147b03c16b18fc4f686f610f189f91ddf4347b4"
+perp_value_currency = "ASML"
+evidence = "2026-09-23 operator 签字。发行方 ASMLx ISIN CH1473121262 → ASML ISIN USN070592100；wrapper 0x9147b03c16b18fc4f686f610f189f91ddf4347b4 convertToAssets(1) = 1.0028663344146624 = multiplier()；OKX ASML-USDT-SWAP ctVal=1 ctValCcy=ASML ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "AVGO"
+name = "Broadcom xStock"
+stock_symbol = "AVGO"
+listing_country = "US"
+symbol = "wAVGOx"
+address = "0xe89572bfe500ac7e8ecd8dc8119d274214e06f14"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x79156502a4fe095c4d34bfdf265ebd23d4737fc0", base_address = "0xe89572bfe500ac7e8ecd8dc8119d274214e06f14", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:AVGO-USDT-SWAP"]
+shares_per_token = "1.0061623180646875"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "AVGOx"
+token_symbol = "AVGOx"
+token_isin = "CH1436219245"
+underlying_isin = "US11135F1012"
+native_address = "0x38bac69cbbd28156796e4163b2b6dcb81e336565"
+wrapper_address = "0xe89572bfe500ac7e8ecd8dc8119d274214e06f14"
+perp_value_currency = "AVGO"
+evidence = "2026-09-23 operator 签字。发行方 AVGOx ISIN CH1436219245 → AVGO ISIN US11135F1012；wrapper 0xe89572bfe500ac7e8ecd8dc8119d274214e06f14 convertToAssets(1) = 1.0061623180646875 = multiplier()；OKX AVGO-USDT-SWAP ctVal=1 ctValCcy=AVGO ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "BMNR"
+name = "Bitmine xStock"
+stock_symbol = "BMNR"
+listing_country = "US"
+symbol = "wBMNRx"
+address = "0xdad5623b32c81aeaa75478fcfe934e9e97018c58"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xf05577e469d04cc8fd84a79c1fe5661b3394cc0e", base_address = "0xdad5623b32c81aeaa75478fcfe934e9e97018c58", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:BMNR-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "BMNRx"
+token_symbol = "BMNRx"
+token_isin = "CH1173294385"
+underlying_isin = "US09175A2069"
+native_address = "0xaeb681b69e5094e04d11bcef51a71358a374c3ed"
+wrapper_address = "0xdad5623b32c81aeaa75478fcfe934e9e97018c58"
+perp_value_currency = "BMNR"
+evidence = "2026-09-23 operator 签字。发行方 BMNRx ISIN CH1173294385 → BMNR ISIN US09175A2069；wrapper 0xdad5623b32c81aeaa75478fcfe934e9e97018c58 convertToAssets(1) = 1 = multiplier()；OKX BMNR-USDT-SWAP ctVal=1 ctValCcy=BMNR ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "COIN"
+name = "Coinbase xStock"
+stock_symbol = "COIN"
+listing_country = "US"
+symbol = "wCOINx"
+address = "0x44c7ed7ffdf8465c9d27f60aec845eed3d49d56e"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x91db1a80bd51fcbd30c6bfa398eee0de24ee2663", base_address = "0x44c7ed7ffdf8465c9d27f60aec845eed3d49d56e", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:COIN-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "COINx"
+token_symbol = "COINx"
+token_isin = "CH1436219708"
+underlying_isin = "US19260Q1076"
+native_address = "0x364f210f430ec2448fc68a49203040f6124096f0"
+wrapper_address = "0x44c7ed7ffdf8465c9d27f60aec845eed3d49d56e"
+perp_value_currency = "COIN"
+evidence = "2026-09-23 operator 签字。发行方 COINx ISIN CH1436219708 → COIN ISIN US19260Q1076；wrapper 0x44c7ed7ffdf8465c9d27f60aec845eed3d49d56e convertToAssets(1) = 1 = multiplier()；OKX COIN-USDT-SWAP ctVal=1 ctValCcy=COIN ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "CRCL"
+name = "Circle xStock"
+stock_symbol = "CRCL"
+listing_country = "US"
+symbol = "wCRCLx"
+address = "0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x72c9ed0993b8ff9496e3a2d528f0d043483462f3", base_address = "0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:CRCL-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "CRCLx"
+token_symbol = "CRCLx"
+token_isin = "CH1436219773"
+underlying_isin = "US1725731079"
+native_address = "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb"
+wrapper_address = "0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8"
+perp_value_currency = "CRCL"
+evidence = "2026-09-23 operator 签字。发行方 CRCLx ISIN CH1436219773 → CRCL ISIN US1725731079；wrapper 0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8 convertToAssets(1) = 1 = multiplier()；OKX CRCL-USDT-SWAP ctVal=1 ctValCcy=CRCL ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "CRWV"
+name = "CoreWeave xStock"
+stock_symbol = "CRWV"
+listing_country = "US"
+symbol = "wCRWVx"
+address = "0xadf63a79c9813a8e0c4d1d334ebdfaeef04bdf98"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xcff1ccc2ea9ea8fb894831f61cb233a4462603a2", base_address = "0xadf63a79c9813a8e0c4d1d334ebdfaeef04bdf98", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:CRWV-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "CRWVx"
+token_symbol = "CRWVx"
+token_isin = "CH1588658604"
+underlying_isin = "US21873S1087"
+native_address = "0x16314d1032e6476c9451d1f02ba365a249ff36c7"
+wrapper_address = "0xadf63a79c9813a8e0c4d1d334ebdfaeef04bdf98"
+perp_value_currency = "CRWV"
+evidence = "2026-09-23 operator 签字。发行方 CRWVx ISIN CH1588658604 → CRWV ISIN US21873S1087；wrapper 0xadf63a79c9813a8e0c4d1d334ebdfaeef04bdf98 convertToAssets(1) = 1 = multiplier()；OKX CRWV-USDT-SWAP ctVal=1 ctValCcy=CRWV ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "DELL"
+name = "Dell Technologies Inc. xStock"
+stock_symbol = "DELL"
+listing_country = "US"
+symbol = "wDELLx"
+address = "0x04db4384013664baa627c1a3fa4ff0c50f37cfd3"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x999c67086ff939ccdd9713007445d41c9b5b3ba2", base_address = "0x04db4384013664baa627c1a3fa4ff0c50f37cfd3", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:DELL-USDT-SWAP"]
+shares_per_token = "1.0033165309725203"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "DELLx"
+token_symbol = "DELLx"
+token_isin = "CH1500008631"
+underlying_isin = "US24703L2025"
+native_address = "0x2782df1cc877f720c81b4f6568db64563f1d3aa3"
+wrapper_address = "0x04db4384013664baa627c1a3fa4ff0c50f37cfd3"
+perp_value_currency = "DELL"
+evidence = "2026-09-23 operator 签字。发行方 DELLx ISIN CH1500008631 → DELL ISIN US24703L2025；wrapper 0x04db4384013664baa627c1a3fa4ff0c50f37cfd3 convertToAssets(1) = 1.0033165309725203 = multiplier()；OKX DELL-USDT-SWAP ctVal=1 ctValCcy=DELL ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "EWY"
+name = "iShares MSCI South Korea xStock"
+stock_symbol = "EWY"
+listing_country = "US"
+symbol = "wEWYx"
+address = "0x021b40617982074748c81a19d22046cc2548c3be"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x669d4a013a88a094896678f2943567153ede636b", base_address = "0x021b40617982074748c81a19d22046cc2548c3be", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:EWY-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "EWYx"
+token_symbol = "EWYx"
+token_isin = "CH1564487333"
+underlying_isin = "US4642867729"
+native_address = "0x299c95eb52bfd5bc98d924bce17197b64864589b"
+wrapper_address = "0x021b40617982074748c81a19d22046cc2548c3be"
+perp_value_currency = "EWY"
+evidence = "2026-09-23 operator 签字。发行方 EWYx ISIN CH1564487333 → EWY ISIN US4642867729；wrapper 0x021b40617982074748c81a19d22046cc2548c3be convertToAssets(1) = 1 = multiplier()；OKX EWY-USDT-SWAP ctVal=1 ctValCcy=EWY ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "GME"
+name = "Gamestop xStock"
+stock_symbol = "GME"
+listing_country = "US"
+symbol = "wGMEx"
+address = "0x459d3ae62b86cc6125e06260dddfd3afed24a877"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xb666c6572e0a76d0f0739f375be3c8a6dc02f84f", base_address = "0x459d3ae62b86cc6125e06260dddfd3afed24a877", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:GME-USDT-SWAP"]
+shares_per_token = "1.005309167384"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "GMEx"
+token_symbol = "GMEx"
+token_isin = "CH1436219690"
+underlying_isin = "US36467W1099"
+native_address = "0xe5f6d3b2405abdfe6f660e63202b25d23763160d"
+wrapper_address = "0x459d3ae62b86cc6125e06260dddfd3afed24a877"
+perp_value_currency = "GME"
+evidence = "2026-09-23 operator 签字。发行方 GMEx ISIN CH1436219690 → GME ISIN US36467W1099；wrapper 0x459d3ae62b86cc6125e06260dddfd3afed24a877 convertToAssets(1) = 1.005309167384 = multiplier()；OKX GME-USDT-SWAP ctVal=1 ctValCcy=GME ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "HOOD"
+name = "Robinhood xStock"
+stock_symbol = "HOOD"
+listing_country = "US"
+symbol = "wHOODx"
+address = "0x59801175a9b2248f9bf4ba7f82e17045c4672ec8"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x90cf20f33457917a06135e5e9941489139111244", base_address = "0x59801175a9b2248f9bf4ba7f82e17045c4672ec8", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:HOOD-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "HOODx"
+token_symbol = "HOODx"
+token_isin = "CH1436219666"
+underlying_isin = "US7707001027"
+native_address = "0xe1385fdd5ffb10081cd52c56584f25efa9084015"
+wrapper_address = "0x59801175a9b2248f9bf4ba7f82e17045c4672ec8"
+perp_value_currency = "HOOD"
+evidence = "2026-09-23 operator 签字。发行方 HOODx ISIN CH1436219666 → HOOD ISIN US7707001027；wrapper 0x59801175a9b2248f9bf4ba7f82e17045c4672ec8 convertToAssets(1) = 1 = multiplier()；OKX HOOD-USDT-SWAP ctVal=1 ctValCcy=HOOD ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "IBM"
+name = "International Business Machines xStock"
+stock_symbol = "IBM"
+listing_country = "US"
+symbol = "wIBMx"
+address = "0xbf69d85055642a9c6450bdfde3c49baac50f8286"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xfec599da1e0ba150f0e4762cd5eb760a5389f876", base_address = "0xbf69d85055642a9c6450bdfde3c49baac50f8286", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:IBM-USDT-SWAP"]
+shares_per_token = "1.0204029187943977"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "IBMx"
+token_symbol = "IBMx"
+token_isin = "CH1436219559"
+underlying_isin = "US4592001014"
+native_address = "0xd9913208647671fe0f48f7f260076b2c6f310aac"
+wrapper_address = "0xbf69d85055642a9c6450bdfde3c49baac50f8286"
+perp_value_currency = "IBM"
+evidence = "2026-09-23 operator 签字。发行方 IBMx ISIN CH1436219559 → IBM ISIN US4592001014；wrapper 0xbf69d85055642a9c6450bdfde3c49baac50f8286 convertToAssets(1) = 1.0204029187943977 = multiplier()；OKX IBM-USDT-SWAP ctVal=1 ctValCcy=IBM ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "INTC"
+name = "Intel xStock"
+stock_symbol = "INTC"
+listing_country = "US"
+symbol = "wINTCx"
+address = "0x33aa35b0271fffe2048cc093ab7fe60931786719"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x937bf3433fea02058b34831971a8e13deff13b5a", base_address = "0x33aa35b0271fffe2048cc093ab7fe60931786719", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:INTC-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "INTCx"
+token_symbol = "INTCx"
+token_isin = "CH1436219609"
+underlying_isin = "US4581401001"
+native_address = "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8"
+wrapper_address = "0x33aa35b0271fffe2048cc093ab7fe60931786719"
+perp_value_currency = "INTC"
+evidence = "2026-09-23 operator 签字。发行方 INTCx ISIN CH1436219609 → INTC ISIN US4581401001；wrapper 0x33aa35b0271fffe2048cc093ab7fe60931786719 convertToAssets(1) = 1 = multiplier()；OKX INTC-USDT-SWAP ctVal=1 ctValCcy=INTC ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "IREN"
+name = "IREN xStock"
+stock_symbol = "IREN"
+listing_country = "US"
+symbol = "wIRENx"
+address = "0xb3a16db475a9cb321fc8956aa2cb01385a022e75"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x819573a085c6094a80fb47ae068aeb53d1e519bf", base_address = "0xb3a16db475a9cb321fc8956aa2cb01385a022e75", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:IREN-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "IRENx"
+token_symbol = "IRENx"
+token_isin = "CH1500008904"
+underlying_isin = "AU0000185993"
+native_address = "0xfbfc1fd14eec970276c8a3bf5e6131cd751cc0b9"
+wrapper_address = "0xb3a16db475a9cb321fc8956aa2cb01385a022e75"
+perp_value_currency = "IREN"
+evidence = "2026-09-23 operator 签字。发行方 IRENx ISIN CH1500008904 → IREN ISIN AU0000185993；wrapper 0xb3a16db475a9cb321fc8956aa2cb01385a022e75 convertToAssets(1) = 1 = multiplier()；OKX IREN-USDT-SWAP ctVal=1 ctValCcy=IREN ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "IWM"
+name = "Russell 2000 xStock"
+stock_symbol = "IWM"
+listing_country = "US"
+symbol = "wIWMx"
+address = "0x25d218f19b706c8680aa26fb64e676cf84b58f65"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x5d702d47e7f3a980458e50da56b3172b87779720", base_address = "0x25d218f19b706c8680aa26fb64e676cf84b58f65", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:IWM-USDT-SWAP"]
+shares_per_token = "1.004730320498842"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "IWMx"
+token_symbol = "IWMx"
+token_isin = "CH1473121478"
+underlying_isin = "US4642876555"
+native_address = "0xdadfb355c6110eda0908740d52c834d6c2bcddc7"
+wrapper_address = "0x25d218f19b706c8680aa26fb64e676cf84b58f65"
+perp_value_currency = "IWM"
+evidence = "2026-09-23 operator 签字。发行方 IWMx ISIN CH1473121478 → IWM ISIN US4642876555；wrapper 0x25d218f19b706c8680aa26fb64e676cf84b58f65 convertToAssets(1) = 1.004730320498842 = multiplier()；OKX IWM-USDT-SWAP ctVal=1 ctValCcy=IWM ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "KO"
+name = "Coca-Cola xStock"
+stock_symbol = "KO"
+listing_country = "US"
+symbol = "wKOx"
+address = "0xe4784b45415aac58b289f9373314261c788c91e8"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x273da512f76129ed59a2d93d68dfe198423a3114", base_address = "0xe4784b45415aac58b289f9373314261c788c91e8", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:KO-USDT-SWAP"]
+shares_per_token = "1.0225601246249238"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "KOx"
+token_symbol = "KOx"
+token_isin = "CH1436219419"
+underlying_isin = "US1912161007"
+native_address = "0xdcc1a2699441079da889b1f49e12b69cc791129b"
+wrapper_address = "0xe4784b45415aac58b289f9373314261c788c91e8"
+perp_value_currency = "KO"
+evidence = "2026-09-23 operator 签字。发行方 KOx ISIN CH1436219419 → KO ISIN US1912161007；wrapper 0xe4784b45415aac58b289f9373314261c788c91e8 convertToAssets(1) = 1.0225601246249238 = multiplier()；OKX KO-USDT-SWAP ctVal=1 ctValCcy=KO ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "MRK"
+name = "Merck xStock"
+stock_symbol = "MRK"
+listing_country = "US"
+symbol = "wMRKx"
+address = "0x7d218d8a2ab4c1f03fdd7b655b4e724d48200050"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xbfdeb617cb66a693abacd664e083dd2f86619d1e", base_address = "0x7d218d8a2ab4c1f03fdd7b655b4e724d48200050", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MRK-USDT-SWAP"]
+shares_per_token = "1.0258591861103177"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MRKx"
+token_symbol = "MRKx"
+token_isin = "CH1436219385"
+underlying_isin = "US58933Y1055"
+native_address = "0x17d8186ed8f68059124190d147174d0f6697dc40"
+wrapper_address = "0x7d218d8a2ab4c1f03fdd7b655b4e724d48200050"
+perp_value_currency = "MRK"
+evidence = "2026-09-23 operator 签字。发行方 MRKx ISIN CH1436219385 → MRK ISIN US58933Y1055；wrapper 0x7d218d8a2ab4c1f03fdd7b655b4e724d48200050 convertToAssets(1) = 1.0258591861103177 = multiplier()；OKX MRK-USDT-SWAP ctVal=1 ctValCcy=MRK ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "MRNA"
+name = "Moderna xStock"
+stock_symbol = "MRNA"
+listing_country = "US"
+symbol = "wMRNAx"
+address = "0xce0fbc16e820ab7fd6d2936f1533c2654ad49ae9"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x3a6a9eb4db50edfbc776a11b551eae015a3d7e90", base_address = "0xce0fbc16e820ab7fd6d2936f1533c2654ad49ae9", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MRNA-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MRNAx"
+token_symbol = "MRNAx"
+token_isin = "CH1580495757"
+underlying_isin = "US60770K1079"
+native_address = "0xefd30445a4ec1f4b3e0a6f4d9bdbd215f805047f"
+wrapper_address = "0xce0fbc16e820ab7fd6d2936f1533c2654ad49ae9"
+perp_value_currency = "MRNA"
+evidence = "2026-09-23 operator 签字。发行方 MRNAx ISIN CH1580495757 → MRNA ISIN US60770K1079；wrapper 0xce0fbc16e820ab7fd6d2936f1533c2654ad49ae9 convertToAssets(1) = 1 = multiplier()；OKX MRNA-USDT-SWAP ctVal=1 ctValCcy=MRNA ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "MRVL"
+name = "Marvell xStock"
+stock_symbol = "MRVL"
+listing_country = "US"
+symbol = "wMRVLx"
+address = "0xb4ee60b6b817ca7386422ef1a0f45eaddea13275"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x88565e0eb8ef1d1be413794822035782ffadbd6f", base_address = "0xb4ee60b6b817ca7386422ef1a0f45eaddea13275", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MRVL-USDT-SWAP"]
+shares_per_token = "1.0016650410248724"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MRVLx"
+token_symbol = "MRVLx"
+token_isin = "CH1436219658"
+underlying_isin = "US5738741041"
+native_address = "0xeaad46f4146ded5a47b55aa7f6c48c191deaec88"
+wrapper_address = "0xb4ee60b6b817ca7386422ef1a0f45eaddea13275"
+perp_value_currency = "MRVL"
+evidence = "2026-09-23 operator 签字。发行方 MRVLx ISIN CH1436219658 → MRVL ISIN US5738741041；wrapper 0xb4ee60b6b817ca7386422ef1a0f45eaddea13275 convertToAssets(1) = 1.0016650410248724 = multiplier()；OKX MRVL-USDT-SWAP ctVal=1 ctValCcy=MRVL ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "MSTR"
+name = "MicroStrategy xStock"
+stock_symbol = "MSTR"
+listing_country = "US"
+symbol = "wMSTRx"
+address = "0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xb665a8ed2c09bd243acfee75a82ef3a8b3f63c67", base_address = "0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MSTR-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MSTRx"
+token_symbol = "MSTRx"
+token_isin = "CH1436219633"
+underlying_isin = "US5949724083"
+native_address = "0xae2f842ef90c0d5213259ab82639d5bbf649b08e"
+wrapper_address = "0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab"
+perp_value_currency = "MSTR"
+evidence = "2026-09-23 operator 签字。发行方 MSTRx ISIN CH1436219633 → MSTR ISIN US5949724083；wrapper 0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab convertToAssets(1) = 1 = multiplier()；OKX MSTR-USDT-SWAP ctVal=1 ctValCcy=MSTR ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "MU"
+name = "Micron Technology xStock"
+stock_symbol = "MU"
+listing_country = "US"
+symbol = "wMUx"
+address = "0xe2047ee3bddb5c99ae428ab83df63f8730698e30"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xd5df921476a3d23abf8cb170d4ee0decd9208dce", base_address = "0xe2047ee3bddb5c99ae428ab83df63f8730698e30", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MU-USDT-SWAP"]
+shares_per_token = "1.0004015986353854"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MUx"
+token_symbol = "MUx"
+token_isin = "CH1473121320"
+underlying_isin = "US5951121038"
+native_address = "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4"
+wrapper_address = "0xe2047ee3bddb5c99ae428ab83df63f8730698e30"
+perp_value_currency = "MU"
+evidence = "2026-09-23 operator 签字。发行方 MUx ISIN CH1473121320 → MU ISIN US5951121038；wrapper 0xe2047ee3bddb5c99ae428ab83df63f8730698e30 convertToAssets(1) = 1.0004015986353854 = multiplier()；OKX MU-USDT-SWAP ctVal=1 ctValCcy=MU ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "NBIS"
+name = "Nebius xStock"
+stock_symbol = "NBIS"
+listing_country = "US"
+symbol = "wNBISx"
+address = "0x43a7b7acfae969b0682e56142b52e63e07d59b7d"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x5d11bb393ae1bad48cb815d4d3f459b920291842", base_address = "0x43a7b7acfae969b0682e56142b52e63e07d59b7d", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:NBIS-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "NBISx"
+token_symbol = "NBISx"
+token_isin = "CH1588658588"
+underlying_isin = "NL0009805522"
+native_address = "0x0361d9e8a923d0fe9b8877d9bc9f38abffb46f74"
+wrapper_address = "0x43a7b7acfae969b0682e56142b52e63e07d59b7d"
+perp_value_currency = "NBIS"
+evidence = "2026-09-23 operator 签字。发行方 NBISx ISIN CH1588658588 → NBIS ISIN NL0009805522；wrapper 0x43a7b7acfae969b0682e56142b52e63e07d59b7d convertToAssets(1) = 1 = multiplier()；OKX NBIS-USDT-SWAP ctVal=1 ctValCcy=NBIS ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "ORCL"
+name = "Oracle xStock"
+stock_symbol = "ORCL"
+listing_country = "US"
+symbol = "wORCLx"
+address = "0x1349456830ddc3d8599e4d6a63698883eca67ada"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x7132a1fe8f48e5ed07161ba7ce4c678c18b5757c", base_address = "0x1349456830ddc3d8599e4d6a63698883eca67ada", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:ORCL-USDT-SWAP"]
+shares_per_token = "1.009318667481834"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "ORCLx"
+token_symbol = "ORCLx"
+token_isin = "CH1436219450"
+underlying_isin = "US68389X1054"
+native_address = "0x548308e91ec9f285c7bff05295badbd56a6e4971"
+wrapper_address = "0x1349456830ddc3d8599e4d6a63698883eca67ada"
+perp_value_currency = "ORCL"
+evidence = "2026-09-23 operator 签字。发行方 ORCLx ISIN CH1436219450 → ORCL ISIN US68389X1054；wrapper 0x1349456830ddc3d8599e4d6a63698883eca67ada convertToAssets(1) = 1.009318667481834 = multiplier()；OKX ORCL-USDT-SWAP ctVal=1 ctValCcy=ORCL ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "PLTR"
+name = "Palantir xStock"
+stock_symbol = "PLTR"
+listing_country = "US"
+symbol = "wPLTRx"
+address = "0x4a2df09536f62341c9f946427d16414c04e21342"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x6e45d19cba0ac02e17f5ea7d5f0f0ea9dbc01e0d", base_address = "0x4a2df09536f62341c9f946427d16414c04e21342", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:PLTR-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "PLTRx"
+token_symbol = "PLTRx"
+token_isin = "CH1436219625"
+underlying_isin = "US69608A1088"
+native_address = "0x6d482cec5f9dd1f05ccee9fd3ff79b246170f8e2"
+wrapper_address = "0x4a2df09536f62341c9f946427d16414c04e21342"
+perp_value_currency = "PLTR"
+evidence = "2026-09-23 operator 签字。发行方 PLTRx ISIN CH1436219625 → PLTR ISIN US69608A1088；wrapper 0x4a2df09536f62341c9f946427d16414c04e21342 convertToAssets(1) = 1 = multiplier()；OKX PLTR-USDT-SWAP ctVal=1 ctValCcy=PLTR ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "QQQ"
+name = "Nasdaq xStock"
+stock_symbol = "QQQ"
+listing_country = "US"
+symbol = "wQQQx"
+address = "0x4c1ae29c159838fc1b224636e28e086eb69101f7"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x2bd90724ffc80ba22ec7af8cfd2b4b51ff395b04", base_address = "0x4c1ae29c159838fc1b224636e28e086eb69101f7", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:QQQ-USDT-SWAP"]
+shares_per_token = "1.0034560758968376"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "QQQx"
+token_symbol = "QQQx"
+token_isin = "CH1436219724"
+underlying_isin = "US46090E1038"
+native_address = "0xa753a7395cae905cd615da0b82a53e0560f250af"
+wrapper_address = "0x4c1ae29c159838fc1b224636e28e086eb69101f7"
+perp_value_currency = "QQQ"
+evidence = "2026-09-23 operator 签字。发行方 QQQx ISIN CH1436219724 → QQQ ISIN US46090E1038；wrapper 0x4c1ae29c159838fc1b224636e28e086eb69101f7 convertToAssets(1) = 1.0034560758968376 = multiplier()；OKX QQQ-USDT-SWAP ctVal=1 ctValCcy=QQQ ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "RDDT"
+name = "Reddit xStock"
+stock_symbol = "RDDT"
+listing_country = "US"
+symbol = "wRDDTx"
+address = "0x9ed51b856159c7cf26c1ece673abd248f21bcc9e"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xd87bd8938f7dd8f60884519090f7b0dcccbaa595", base_address = "0x9ed51b856159c7cf26c1ece673abd248f21bcc9e", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:RDDT-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "RDDTx"
+token_symbol = "RDDTx"
+token_isin = "CH1580495278"
+underlying_isin = "US75734B1008"
+native_address = "0x52ce422d81e62a2c4bb87653d66f2235c73b152e"
+wrapper_address = "0x9ed51b856159c7cf26c1ece673abd248f21bcc9e"
+perp_value_currency = "RDDT"
+evidence = "2026-09-23 operator 签字。发行方 RDDTx ISIN CH1580495278 → RDDT ISIN US75734B1008；wrapper 0x9ed51b856159c7cf26c1ece673abd248f21bcc9e convertToAssets(1) = 1 = multiplier()；OKX RDDT-USDT-SWAP ctVal=1 ctValCcy=RDDT ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "RKLB"
+name = "Rocket Lab xStock"
+stock_symbol = "RKLB"
+listing_country = "US"
+symbol = "wRKLBx"
+address = "0x5aa45cf9d8c8555c9a76cf0207519501c227a235"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x10c1692065e9fbb0c53166175e633f74a9133364", base_address = "0x5aa45cf9d8c8555c9a76cf0207519501c227a235", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:RKLB-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "RKLBx"
+token_symbol = "RKLBx"
+token_isin = "CH1473121387"
+underlying_isin = "US7731211089"
+native_address = "0xe17ce7dd2afb6da3488fd9ef2558523d569e17b4"
+wrapper_address = "0x5aa45cf9d8c8555c9a76cf0207519501c227a235"
+perp_value_currency = "RKLB"
+evidence = "2026-09-23 operator 签字。发行方 RKLBx ISIN CH1473121387 → RKLB ISIN US7731211089；wrapper 0x5aa45cf9d8c8555c9a76cf0207519501c227a235 convertToAssets(1) = 1 = multiplier()；OKX RKLB-USDT-SWAP ctVal=1 ctValCcy=RKLB ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "SKHY"
+name = "SK hynix xStock"
+stock_symbol = "SKHY"
+listing_country = "US"
+symbol = "wSKHYx"
+address = "0x6215a58ed045d71f2561aaabe54f4c885c522998"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x9aefefe134808deb4b7829ad98ceb97eaa02ed2d", base_address = "0x6215a58ed045d71f2561aaabe54f4c885c522998", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SKHY-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "SKHYx"
+token_symbol = "SKHYx"
+token_isin = "CH1580497340"
+underlying_isin = "US78392B2060"
+native_address = "0x58100046a4afcd4ee4fadbd4244f3f895a341c56"
+wrapper_address = "0x6215a58ed045d71f2561aaabe54f4c885c522998"
+perp_value_currency = "SKHY"
+evidence = "2026-09-23 operator 签字。发行方 SKHYx ISIN CH1580497340 → SKHY ISIN US78392B2060；wrapper 0x6215a58ed045d71f2561aaabe54f4c885c522998 convertToAssets(1) = 1 = multiplier()；OKX SKHY-USDT-SWAP ctVal=1 ctValCcy=SKHY ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "SMCI"
+name = "Super Micro Computer, Inc. xStock"
+stock_symbol = "SMCI"
+listing_country = "US"
+symbol = "wSMCIx"
+address = "0xd89556e08fdc04e5a2d9344eb06568a043001166"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xf25e591d6db20dc6848cebeae44f87e685f79a36", base_address = "0xd89556e08fdc04e5a2d9344eb06568a043001166", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SMCI-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "SMCIx"
+token_symbol = "SMCIx"
+token_isin = "CH1500008649"
+underlying_isin = "US86800U3023"
+native_address = "0x39c31fc6038490ea4bf8a21ca18cd18f33b8d3fb"
+wrapper_address = "0xd89556e08fdc04e5a2d9344eb06568a043001166"
+perp_value_currency = "SMCI"
+evidence = "2026-09-23 operator 签字。发行方 SMCIx ISIN CH1500008649 → SMCI ISIN US86800U3023；wrapper 0xd89556e08fdc04e5a2d9344eb06568a043001166 convertToAssets(1) = 1 = multiplier()；OKX SMCI-USDT-SWAP ctVal=1 ctValCcy=SMCI ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "SNDK"
+name = "Sandisk Corporation xStock"
+stock_symbol = "SNDK"
+listing_country = "US"
+symbol = "wSNDKx"
+address = "0x75e82e2884ea10f72fca777449b73377f4646219"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x51fefdfd51f0b95f71ea236b6b349902457269f8", base_address = "0x75e82e2884ea10f72fca777449b73377f4646219", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SNDK-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "SNDKx"
+token_symbol = "SNDKx"
+token_isin = "CH1500008748"
+underlying_isin = "US80004C2008"
+native_address = "0xb63efbc28860c8097e341de1fcf59456161e9d98"
+wrapper_address = "0x75e82e2884ea10f72fca777449b73377f4646219"
+perp_value_currency = "SNDK"
+evidence = "2026-09-23 operator 签字。发行方 SNDKx ISIN CH1500008748 → SNDK ISIN US80004C2008；wrapper 0x75e82e2884ea10f72fca777449b73377f4646219 convertToAssets(1) = 1 = multiplier()；OKX SNDK-USDT-SWAP ctVal=1 ctValCcy=SNDK ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "SPCX"
+name = "SpaceX xStock"
+stock_symbol = "SPCX"
+listing_country = "US"
+symbol = "wSPCXx"
+address = "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x535aabfaf9a6fbc1a04317b98885706dc6bf1650", base_address = "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SPCX-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "SPCXx"
+token_symbol = "SPCXx"
+token_isin = "CH1564487366"
+underlying_isin = "US84615Q1031"
+native_address = "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28"
+wrapper_address = "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072"
+perp_value_currency = "SPCX"
+evidence = "2026-09-23 operator 签字。发行方 SPCXx ISIN CH1564487366 → SPCX ISIN US84615Q1031；wrapper 0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072 convertToAssets(1) = 1 = multiplier()；OKX SPCX-USDT-SWAP ctVal=1 ctValCcy=SPCX ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "SPY"
+name = "SP500 xStock"
+stock_symbol = "SPY"
+listing_country = "US"
+symbol = "wSPYx"
+address = "0xe7e553cd128f0011777323a0b44a7b96ea1cb540"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x07c40850d14064d20eb0afdef9574675392f2c11", base_address = "0xe7e553cd128f0011777323a0b44a7b96ea1cb540", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SPY-USDT-SWAP"]
+shares_per_token = "1.005714560286254"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "SPYx"
+token_symbol = "SPYx"
+token_isin = "CH1436219716"
+underlying_isin = "US78462F1030"
+native_address = "0x90a2a4c76b5d8c0bc892a69ea28aa775a8f2dd48"
+wrapper_address = "0xe7e553cd128f0011777323a0b44a7b96ea1cb540"
+perp_value_currency = "SPY"
+evidence = "2026-09-23 operator 签字。发行方 SPYx ISIN CH1436219716 → SPY ISIN US78462F1030；wrapper 0xe7e553cd128f0011777323a0b44a7b96ea1cb540 convertToAssets(1) = 1.005714560286254 = multiplier()；OKX SPY-USDT-SWAP ctVal=1 ctValCcy=SPY ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "TSM"
+name = "TSMC xStock"
+stock_symbol = "TSM"
+listing_country = "US"
+symbol = "wTSMx"
+address = "0x27d62249488fc66ecbb92c8da3f56f700b8e8501"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0xffa54f397c277496ee10e1465522addd2e2d1cee", base_address = "0x27d62249488fc66ecbb92c8da3f56f700b8e8501", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:TSM-USDT-SWAP"]
+shares_per_token = "1.0061874479320332"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "TSMx"
+token_symbol = "TSMx"
+token_isin = "CH1473121247"
+underlying_isin = "US8740391003"
+native_address = "0x9e3bf4ecfc44eedd624f26656b6736a3f093b073"
+wrapper_address = "0x27d62249488fc66ecbb92c8da3f56f700b8e8501"
+perp_value_currency = "TSM"
+evidence = "2026-09-23 operator 签字。发行方 TSMx ISIN CH1473121247 → TSM ISIN US8740391003；wrapper 0x27d62249488fc66ecbb92c8da3f56f700b8e8501 convertToAssets(1) = 1.0061874479320332 = multiplier()；OKX TSM-USDT-SWAP ctVal=1 ctValCcy=TSM ctMult=1。证据 data/mapping_batch.json。"
+
+[[tokens]]
+asset = "WMT"
+name = "Walmart xStock"
+stock_symbol = "WMT"
+listing_country = "US"
+symbol = "wWMTx"
+address = "0x3b4336e3958913984c2e36b8ed0e7c87a5bdee33"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = false
+pools = [
+  { address = "0x0f7317a0d58f4dc3edf559c489d004f2fa8c82f3", base_address = "0x3b4336e3958913984c2e36b8ed0e7c87a5bdee33", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:WMT-USDT-SWAP"]
+shares_per_token = "1.0071845610241497"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "WMTx"
+token_symbol = "WMTx"
+token_isin = "CH1436219427"
+underlying_isin = "US9311421039"
+native_address = "0x7aefc9965699fbea943e03264d96e50cd4a97b21"
+wrapper_address = "0x3b4336e3958913984c2e36b8ed0e7c87a5bdee33"
+perp_value_currency = "WMT"
+evidence = "2026-09-23 operator 签字。发行方 WMTx ISIN CH1436219427 → WMT ISIN US9311421039；wrapper 0x3b4336e3958913984c2e36b8ed0e7c87a5bdee33 convertToAssets(1) = 1.0071845610241497 = multiplier()；OKX WMT-USDT-SWAP ctVal=1 ctValCcy=WMT ctMult=1。证据 data/mapping_batch.json。"
+

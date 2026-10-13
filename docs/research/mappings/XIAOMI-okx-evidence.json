@@ -1,0 +1,34 @@
+{
+  "issuer_asset_source": "https://api.backed.fi/api/v2/public/assets",
+  "issuer_asset_observed": {
+    "symbol": "XIAOx",
+    "name": "Xiaomi xStock",
+    "underlying_symbol": "1810",
+    "listing_country": "HK",
+    "chain_id": "196",
+    "native_address": "0xfb4f81f511b40b80996062032260a539e60adfc0",
+    "wrapper_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+  },
+  "cex_instrument_source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+  "cex_instrument_observed": {
+    "instId": "XIAOMI-USDT-SWAP",
+    "instFamily": "XIAOMI-USDT",
+    "instType": "SWAP",
+    "state": "live",
+    "ctType": "linear",
+    "ctVal": "1",
+    "settleCcy": "USDT",
+    "minSz": "1",
+    "lotSz": "1",
+    "tickSz": "0.001"
+  },
+  "underlying_match_source": "issuer name Xiaomi + issuer HK code 1810 + OKX instFamily XIAOMI-USDT; requires human approval",
+  "contract_spec_source": "OKX public instruments API response captured in config/venue_registry.json",
+  "observed_at": "2026-09-15T08:33:22.455694+00:00",
+  "historical_execution_evidence": {
+    "source": "docs/project-context-2026-09-14.md",
+    "instrument": "XIAOMI-USDT-SWAP",
+    "note": "Historical OKX open/close fills exist; this is execution evidence, not proof that every chain wrapper is fungible with the contract."
+  },
+  "review_note": "Pending human approval. Do not mark verified automatically."
+}

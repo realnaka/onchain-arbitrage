@@ -1,0 +1,123 @@
+# v2 阈值的唯一来源。不改 v1 的 ops/xstocks_policy.toml 和 ops/xstocks_eth_policy.toml。
+# live 三件套保持关闭。写代码期间 v1 继续跑。
+
+[trade]
+# operator 2026-10-07：额度放大到 200 USDT。**先不充钱**，先把
+# Kraken买→提Solana→桥XLayer→XLayer卖出 这条链路走通；实际每笔仍然
+# 受钱包余额和出口深度约束（max_depth_share），200 只是上限不是目标。
+per_trade_quote_usdt = "200"
+# operator 2026-10-08（选 A）：**票面按池子定，不再拿池子来筛票面**。
+# 有效票面 = min(per_trade_quote_usdt, 池深 × max_depth_share)。
+# 低于这个下限就当「这口池做不了」→ below_depth。
+# 25 与 v1 的单笔口径一致（v1 的阶梯是 1/5/20/100/500，最小可做 25）。
+min_trade_quote_usdt = "25"
+min_net_profit_usdt  = "0.1"
+# operator 2026-10-07：美股正式开盘用 20 bps，休市（含盘前盘后夜盘）用 4 bps。
+# 开盘/休市由 core 日历判定，写在每轮快照里；日历认不出的日期按严的一档（20）。
+min_net_edge_bps        = "4"     # 兼容字段：session_split=false 时用这个
+min_net_edge_bps_open   = "20"
+min_net_edge_bps_closed = "4"
+session_split           = true
+# 卖出腿的成交下限（相对「决策所用的那个价」）：**与 v1 的
+# `ops/xstocks_policy.toml` 同一个数**，不是新造的阈值。
+# 2026-10-08 21:3x 实测教训：v2 的卖出腿读 `policy.min_price_vs_ref`，而 V2Policy
+# 没有这个字段 → 一笔已经买进 Kraken 的 0.98401 PFEx.T 卡在裸腿上
+# （AttributeError，整轮连账本都没写）。按 operator「赚钱第一」的口径，这个数的
+# 角色是「别把成交价摔到决策价 99.5% 以下」，不是经济门槛。
+min_price_vs_ref        = "0.995"
+stage2_buffer_bps    = "30"
+stage2_max           = 20
+max_slippage_bps     = 10
+
+[limits]
+one_cycle_at_a_time = true
+daily_open_quote_usdt = "500"
+daily_trades_max = 20
+loss_alert_trades = 1
+loss_pause_trades = 2
+
+[watch]
+max_age_ms = 15000
+max_pair_skew_ms = 10000
+round_budget_s = 60
+# 死池清单的三条闸门（2026-10-08 实测教训：x-layer 的 TSLAx/SPCXx 被误判一次，
+# 6 小时内不再报价，而它们的真实往返只有 10.5/11.2 bps）。
+# confirm_hits：判死要**连续命中**这么多次才真的跳过（1 次不算）。
+# ttl_s：到点自动重看。recheck_max：每轮最多重看几口（最久没看的先看），
+# 让「看错」能自己好过来，同时给 Jupiter 的 429 预算一个硬上限。
+dead_pool_confirm_hits = 2
+dead_pool_ttl_s        = 3600
+dead_pool_recheck_max  = 4
+# 轮转名额（2026-10-08）：Solana 的 stage2_max 个报价名额里，留几个给
+# **最久没报过价**的 Solana rail，最久的先补。原因：排序只看当时的毛价差，
+# 排不进前 20 的 rail 永远没有行，看板就没法说它值不值得登记地址。
+# 名额是从同一个预算里让出来的（总报价数不变，轮次时长不变），
+# 让出去的是排名最低的几个 + 反向名单的尾巴。设 0 = 关闭轮转。
+rotation_slots         = 4
+
+[feeds]
+# 所有 Jupiter 调用共用一把限速器（含 API key 时是 1 rps，headroom 0.9）。
+jupiter_rps         = "0.9"
+# X Layer 的 JSON-RPC 批量上限是 10；再多会回 -32014。
+jsonrpc_batch_max   = 10
+# 一次性全量双边计时用；超过它就去砍宇宙，不砍新鲜度。
+full_scan_timeout_s = 900
+
+[costs]
+# 成本只在这里定义，不散落在代码里（规格 §10）。
+kraken_taker_bps     = "10"       # 实测 8.21–10 bps
+slippage_buffer_bps  = "10"
+sol_transfer_first   = "0.00313"  # 首次给某标的转账：含对方账户租金，不可退
+sol_transfer_repeat  = "0.000015" # 该标的已建过账户：只剩基础费
+# ETH 一笔链上动作（approve + swap + 充值）的实测 gas 合计。
+evm_gas_units        = "441831"   # 2026-10-07 STRCx：55,558+301,190+85,083
+# 报价质量闸门。薄池会把「买价」推高、把「卖价」压低，两个方向都会造假价差：
+# 2026-10-07 首轮扫描里 BSC 的 MSTRx 池深 29 USD，被算成 +4697 bps。
+max_depth_share         = "0.2"   # 我们的名义不超过池深的这个比例
+# operator 2026-10-08：**同池往返损耗不再当拒因**，只作为证据（行上标
+# ``round_trip_wide``、死池证据里记 round_trip_bps）。理由：我们只过一次池子，
+# 而往返损耗 ≈ 2×池子自己的价差；实测 HOODx/x-layer 买侧曲线干净（109.96→111.12
+# over 50→200），反侧是空的，往返 5242 bps 却把一口能用的池判死了。
+venue_round_trip_max_bps = "150"  # 超过它 → 只标记「这口池一边是空的」
+# 报价自己报出来的价格冲击，**只看我们成交的那个方向**（买入口 / 卖出口），
+# 不再取两侧最大值（替对手方担心会误杀）。实测：MARAx 卖侧 impact 2221 bps、
+# TMUSx 买侧 9995 bps —— 假价方向自己就会暴露。
+max_price_impact_bps    = "300"
+# 假价闸门（**数据质量**，不是经济性）。把「同池往返」从拒因撤掉之后，
+# 2026-10-08 09:16 实测立刻漏出一条 KLACx 行：Kraken 买一 194，池子报价 758，
+# +26,164 bps，blockers 为空 —— 这类假价的 price level 本身就是错的，而它的
+# impact 数字并不大，所以方向化的 impact 拦不住它。参考价偏离超过这个带就按
+# 「坏数据」处理（blocker = price_outlier），不给它进候选的机会。
+# 取值依据：历史上真实的大折价 ≈ 2,300–3,000 bps（XOPx 23–30%），
+# 实测假价 = 4,054 / 19,251 / 26,164 / 414,906 bps，3000 是两者的分界。
+# 【需要 operator 确认这个数】
+max_price_outlier_bps   = "3000"
+
+[probe]
+# 小样本探针的预算（operator 2026-10-09 定：「任何桥/提币路线，只要缺『这个币在
+# 这条边到账过』的样本，触发条件就是用最小可行额走一次试探，不是拒绝理由」）。
+# 这是**花钱**的动作，所以两个上限都是硬闸门，由 probe.budget_decide 执行：
+#   max_per_day        —— 每 UTC 自然日最多走几次（计数器在
+#                         data-v2/xstocks_v2_probe_budget.json，重启不清零）
+#   max_usdt_per_probe —— 单次探针的最大金额（USDT）
+# 留空或写 0 = cap_not_set = 拒绝（不是「无限」）：缺数字从来不是放行理由。
+# operator 2026-10-09 先给 3 次/2 USDT；同日 16:5x 改为 **10 次/天**（原话：
+# 「探针预算 3/3 已满」→「改为10次每天」）。单次上限不变，仍是 2 USDT。
+max_per_day         = 10
+max_usdt_per_probe  = "2"
+
+[execution]
+# operator 2026-10-07 明确授权进入 live，并给了 live_ack 串。
+# 三把钥匙必须同时成立才会签名；任何一项改回下面的值即立刻停止广播。
+phase = "scan"
+mode = "off"
+auto_orders = "off"
+live_ack = ""
+
+[capital]
+solana_floor_usdt = "25"
+xlayer_floor_usdg = "20"
+eth_usdc_floor_usdt = "0"
+eth_gas_floor_eth = "0.0005"
+sol_min_alert = "0.01"
+credit_mismatch_ratio = "0.01"

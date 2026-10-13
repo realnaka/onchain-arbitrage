@@ -1,0 +1,33 @@
+[project]
+name = "arb-monitor"
+version = "0.1.0"
+description = "Monitoring-first CEX/DEX arbitrage research framework"
+requires-python = ">=3.11"
+dependencies = [
+    # Imported at module level by src/arb_monitor/xstocks_v2/legs_ton.py.
+    "pytoniq>=0.1.39",
+    # Imported (lazily) by the Kraken spot adapter and the xStocks buy leg.
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+live = ["ccxt==4.5.78"]
+# Only the one-off operator scripts need these; the monitor itself does not.
+scripts = [
+    "aiohttp>=3.9",      # scripts/kraken_ws_address_probe.py
+    "openpyxl>=3.1",     # scripts/export_xstocks_catalog.py
+    "pycryptodome>=3.20",  # scripts/xstocks_v4_audit.py
+]
+
+[project.scripts]
+arb-monitor = "arb_monitor.apps.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

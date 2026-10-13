@@ -1,0 +1,47 @@
+name: ci
+
+# Every push and every pull request. The repository is written by more than one
+# agent, so the point of this job is to answer one question the same way for
+# everyone: does the checked-in tree still pass its own tests?
+on:
+  push:
+    # The 15-minute working-tree backup lands here (scripts/auto-backup.sh).
+    # It is a snapshot, not a change: running 96 CI jobs a day over it would
+    # bury the runs that matter.
+    branches-ignore:
+      - wip-snapshot
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      # The runtime helper scripts (scripts/deploy-from-github.sh,
+      # scripts/open-pr.sh, scripts/auto-backup.sh) are zsh, and
+      # tests/test_github_center.py runs them the way launchd does. macOS ships
+      # zsh; the Ubuntu image does not, so without this step those tests error
+      # before they test anything.
+      - run: sudo apt-get update && sudo apt-get install -y zsh
+
+      # Pin the interpreter to the one the monitor actually runs on. The venv
+      # on the operator's Mac is 3.14.x; testing an older one would pass on code
+      # that fails live.
+      - run: uv python install 3.14
+
+      # --frozen: fail instead of silently re-resolving. A stale uv.lock is a
+      # real defect (the lock had no pytoniq in it until 2026-10-09), and CI is
+      # where it should be caught.
+      - run: uv sync --frozen --extra live --extra scripts
+
+      # No secrets and no network: the config files are in the repo, the tests
+      # that need a venue or a chain use fakes, and config/*.env is gitignored.
+      - run: PYTHONPATH=src .venv/bin/python -m unittest discover -s tests

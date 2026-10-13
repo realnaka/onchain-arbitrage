@@ -1,0 +1,39 @@
+# Ethereum xStocks 自动链的**唯一**阈值来源。
+# 默认全关。live 需要 operator 同时改 mode / auto_orders / live_ack。
+
+[trade]
+per_trade_quote_usdt = "25"
+min_net_profit_usdt  = "0.1"
+allowed_tier         = "green"
+max_slippage_bps     = 50
+
+[exit]
+kraken_fee_bps       = "10"
+slippage_buffer_bps  = "10"
+max_book_slip_bps    = "50"
+max_book_share       = "0.2"
+
+[limits]
+daily_open_quote_usdt = "500"
+daily_trades_max      = "20"
+loss_alert_trades     = "1"
+loss_pause_trades     = "2"
+
+[watch]
+snapshot_max_age_s = 600
+poll_interval_s    = 60
+
+[capital]
+eth_usdc_floor_usdt      = "5"
+eth_usdc_target_usdt     = "25"
+eth_gas_floor_eth        = "0.0005"
+kraken_min_before_withdraw = "20"
+
+[costs]
+withdraw_fee_usdt = "1.9"
+
+[execution]
+# operator-only：默认 off。live 需要三项同时成立。
+mode            = "off"
+auto_orders     = "off"
+live_ack        = ""

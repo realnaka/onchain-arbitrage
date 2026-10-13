@@ -1,0 +1,1494 @@
+[monitor]
+# Bybit / Bitget joined 2026-09-16 (operator: "也监控 bybit 和 bitget 的股票合约，
+# 看看哪里的交易机会比较多"). Both are read-only here: neither has an execution
+# adapter, and the executor's allowlist (`config/automation_policy.toml
+# [allowlist] venues`) still contains okx only. Measured on that day: Bybit lists
+# 6 of our 6 assets, Bitget lists the same 6 (plus HKD-number siblings, which are
+# excluded — a different instrument on a different ruler). Bitget reads through
+# its V2 mix endpoints; V1 answers "The V1 API has been decommissioned".
+# Aster / Hyperliquid / Lighter joined 2026-09-17 on the operator's instruction
+# ("Aster / Lighter / edgeX / HL 要接成只读行情"). All three are read-only here:
+# none has an execution adapter and the allowlist venues stay ["okx"]. Measured
+# coverage of our six HK names on that day:
+#   aster        POPMART, XIAOMI, TENCENT, MEITUAN, KUAISHOU
+#   hyperliquid  SHEIN only (HIP-3 builder dex "xyz")
+#   lighter      XIAOMI, TENCENT, POPMART, SHEIN
+# edgeX was probed and is *not* listed: its public meta has 293 coins, none of
+# them ours, so there would be nothing to read.
+#
+# gate removed 2026-09-22 (operator: "之后不需要再监控 gate 这个交易所，我决定
+# 不使用这个交易所"). This is a *scope* change, not a bug fix: the adapter
+# (`data/hk_cex.py`) and the reviewed `gate:` mapping blocks below are left in
+# place as evidence, but nothing reads Gate any more — no contract catalogue, no
+# perp book, no funding rate, and no `basis_evaluation` row. Two consequences
+# worth knowing before quoting anything:
+#   * the venue-opportunity scoreboard's Gate column stops at the moment of the
+#     restart and will keep showing a stale rate until the window rolls past it;
+#   * `docs/venue-selection-2026-09-20.md` ranked Gate ≈ Bitget first (538 ≈ 518
+#     candidates). That ranking is still the historical measurement it was, but
+#     Gate is no longer a candidate venue for this project, so S1 (picking a
+#     venue to write an execution adapter for) now reads: bitget first.
+# 2026-09-23 operator: 先不监控其他交易所，只留 X Layer 现货 + OKX 永续。
+# 其余场所的适配器和历史映射块仍在仓库里，只是这一轮不采集。
+venues = ["okx"]
+# Scope since 2026-09-22 (operator: "现在开始对这114个公司也进行监控"): the grid is
+# no longer Hong Kong only. The seven reviewed US blocks are in the list below
+# and their 107 reviewed-pending peers arrive through issuer discovery
+# (`token_adopt_markets` now includes US), gated twice — OKX must quote a stock
+# perp for the name, and its X Layer pool must clear `min_pool_depth_usd`.
+# Machine-adopted US names rotate through the quote grid instead of joining it
+# every cycle (`quote_slice_markets` below); everything they cannot do yet is
+# stated per row: `mapping_verified = false`, no execution allowlist entry, so
+# they are screened and displayed, never executable.
+# `probe_shares = ["1"]` a monitored asset costs two OnchainOS CLI probes per
+# cycle, and the 60-second batch has one shared local proxy. Measured 2026-09-16:
+# 32 probes took 17.4 s against a 15 s pairing budget.
+#
+# 2026-09-22 (operator: "现在开始对这114个公司也进行监控"): the seven reviewed US
+# names below are now in this list, so the grid goes from 12 probes to 26 and the
+# US row is priced every cycle. The other 107 US candidates do **not** enter this
+# list: they arrive through issuer discovery (`token_adopt_markets` now includes
+# US) and their probes rotate through `quote_slice_assets_per_cycle`, so a market
+# that is only being screened cannot multiply the grid by its name count.
+assets = [
+  "XIAOMI", "TENCENT", "POPMART", "MEITUAN", "KUAISHOU", "SHEIN",
+  "AAPL", "NVDA", "TSLA", "MSFT", "AMZN", "META", "GOOGL",
+]
+# Independent quote probes, not three concurrent positions. Capital is split,
+# not doubled; margin allocation is distinct from hedge notional.
+# The live probe is not this list. `probe_from_contract_minimum` quotes each
+# contract at its own OKX floor: sz >= minSz and a multiple of lotSz, converted
+# to a token amount that hedges exactly. There is no separate USD minimum on
+# OKX SWAP. The cash ceiling (`per_trade_quote_usdt`) raises that size when the
+# last bid is known; if that larger exact-out reverts, the probe falls back to
+# the contract minimum. One whole share is not the floor.
+# `probe_shares` remains only for the legacy batch helper and its tests.
+probe_from_contract_minimum = true
+probe_shares = ["1"]
+# 轮转报价切片（operator，2026-09-22："现在开始对这114个公司也进行监控"）。
+#
+# 每条报价探针都是一次 OnchainOS CLI 往返，走的是 60 秒采样循环也在用的同一条
+# 本地代理。实测（2026-09-22）：港股 6 个标的 = 12 条探针 ≈ 6-12 秒/轮。若把
+# 114 个美股按同样口径每条都发，就是 228 条探针 ≈ 4 个 worker 的 55 波，一轮要
+# 好几分钟——先老化的会是港股自己那条腿的报价。
+#
+# 所以 `quote_slice_markets` 里的市场按游标轮转：每轮只报
+# `quote_slice_assets_per_cycle` 个"发现来的"标的，N 个名字在 ceil(N/slice)
+# 轮内走完一遍，单轮永远不会多出 slice 条。手写块（`mapping-verify` 走过的那 7
+# 个美股 + 港股 6 个）不参与轮转，照旧每轮都报。
+# 114 ÷ 3 ≈ 38 轮 ≈ 38 分钟走完一遍；轮转位置写在
+# `run_summary.quote_grid_slice`，所以"这轮报了哪几个美国名字"是可查的，不靠
+# 缺失的行去猜。
+quote_slice_markets = ["US"]
+quote_slice_assets_per_cycle = 3
+# OnchainOS 精确报价是执行用的，不是“把 100 多个名字标上价”的通道。
+# 2026-09-23 实测：一轮 16 个名字、32 条探针，批次 15239 ms，超过 15 s 新鲜度，
+# 并发被自适应降到 2，并持续 Rate limited。所以精确报价只发给下面这 6 个
+# 已经在执行资产名单里的港股。美股和其余名字的价格走 OKX 一次 tickers
+# 加上池子 slot0（run_summary.price_screen），不进下单报价。
+quote_exact_assets = [
+  "XIAOMI", "TENCENT", "POPMART", "MEITUAN", "KUAISHOU", "SHEIN",
+]
+# Notional ladder for the depth table. These are computed from the pool's own
+# state (slot0 + liquidity), so they cost no quote probes and can stay useful
+# at sizes we would never send.
+depth_sizes = ["4", "100", "500", "1000"]
+# Quote probes are CLI round trips; they run concurrently. Sequentially the
+# grid took ~70s, which aged every order book past the pairing budget.
+# Measured 2026-09-15: 12 concurrent probes → the venue answers
+# "Rate limited — retry with backoff"; 6 concurrent probes → the local proxy
+# starts answering "Network unavailable". 4 keeps both quiet.
+#
+# 2026-09-21: this is now the **ceiling**, not a fixed value. The grid may be
+# narrowed by the adaptive controller (`quote_concurrency` in the summary) when
+# a window of rounds is over budget, rate-limited or missing its deadlines, and
+# widened back towards this value when the window is calm. It is never raised
+# above the number written here: the operator's instruction was not to answer a
+# slow grid with more concurrency against the same proxy.
+quote_workers = 4
+# Narrowest the grid may be narrowed to. Below 2 the buy/sell legs stop
+# overlapping at all.
+quote_workers_min = 2
+# Wall-clock budget for ONE asset's buy+sell probe. The batch budget bounds the
+# round; this bounds a single asset, so a stuck asset releases its worker instead
+# of holding it until `market_batch_budget_seconds`. A probe that misses it is
+# recorded as that asset's miss (`quote_asset_deadlines_missed`), never as a
+# price and never as the previous cycle's quote.
+quote_asset_deadline_seconds = 12
+# Alternating venues (operator, 2026-09-17: "现在就做隔轮采样").
+#
+# These three are read every 2nd cycle (~2 minutes instead of ~1). On the cycles
+# they are skipped they are *not evaluated at all*: an absent row means "not
+# sampled", never "no book existed". The run summary carries
+# `sampled_venues` / `skipped_venues` so the gap is explicit.
+#
+# MEASURED OUTCOME, same day — read this before believing it fixed anything:
+# it did not. The intent was to bring the spot quote batch back under its 15s
+# freshness budget, and the batch time is **not** driven by how many perp venues
+# are polled. Over 7 consecutive cycles after the change: full cycles 6.0/7.4/
+# 11.6s, skip cycles 6.1/6.2/10.8/**31.5s** — a skipped cycle was the slowest of
+# all. The rejection breakdown says why: on an 11.6s batch, 28 of 39 rows died on
+# `missing_or_stale_spot_buy_quote` (+15 on the sell side), while perp-book
+# staleness stayed at its constant baseline of 5 (the unmapped HKD siblings). The
+# bottleneck is the 16 OnchainOS CLI probes (8 assets × 2 sides, 4 workers = 4
+# sequential waves), whose per-wave latency swings by 5x.
+#
+# Kept anyway because it does cut total proxy load and rate-limit pressure (one
+# `quoting_rate_limited` was observed without it) at no cost to the three venues
+# that trade a few hundred shares a day. It is NOT the fix: that has to target
+# the quote grid. See docs/research/perp-dex-venues-2026-09-17.md §5.
+#
+# Trade-off to remember: a venue sampled every 2nd cycle has half the samples
+# over the same window, so its opportunity *rate* is comparable but its absolute
+# run counts are not. The scoreboard already normalises by per-venue sampled
+# cycles for exactly this reason.
+alternate_venues = ["aster", "hyperliquid", "lighter"]
+alternate_every_cycles = 2
+# Perp reads are flattened into one bounded pool (operator, 2026-09-17: "把每合约的
+# depth/funding 并发发出"). Before this, each venue had one thread with
+# depth-then-funding serial inside it: gate's 8 contracts were 16 sequential HTTP
+# calls (measured 3.2s), bitget's 6 were 12 (3.4s), and `evaluated_at` waits for
+# the slowest venue — so those seconds aged every spot quote fetched alongside
+# them (measured: last quote landed 8.7s before `evaluated_at`, quotes reaching
+# 10.6-13.8s against a 15s budget).
+#
+# The bound matters more than the parallelism: all these reads share this
+# machine's one local proxy, so an unbounded fan-out would trade one slow leg for
+# a broken one. Raise it only with a measurement in hand.
+perp_workers = 8
+# Instrument metadata is discovery-only and must not hold the 60-second
+# sampling loop when one catalogue endpoint stalls.
+metadata_budget_seconds = 20
+# Hard wall-clock budget for one CEX/public quote batch.  A slow provider is
+# recorded as a missing sample; it must not hold the 60-second monitor loop.
+market_batch_budget_seconds = 30
+# Funding reprices on an 8-hour clock and nothing in this process reads the
+# events back (`funding_exit` queries OKX directly), so re-reading it every cycle
+# was ~40% of all perp calls for data nobody consumed at that rate. On the venues
+# without an execution adapter it is display-only to begin with. A failed read is
+# retried on the next cycle — "could not read" is never remembered as "read".
+funding_refresh_cycles = 20
+# Bounded retries for read-only quotes. Writes get zero retries; quotes are
+# reads, so a jittered backoff is allowed and is the difference between a
+# measured price and a hole in the grid.
+quote_retries = 3
+quote_backoff_ms = 600
+total_capital_usdt = "10000"
+spot_allocation_usdt = "5000"
+margin_allocation_usdt = "5000"
+max_age_ms = 15000
+max_pair_skew_ms = 10000
+quote_ttl_ms = 10000
+min_net_edge_bps = "20"
+# Operator 2026-09-24: 1 USDT is too high for the current wallet. 0.1 is a
+# test floor so a small live round trip can be observed. Raise it again
+# before treating the book as a normal size.
+min_net_profit_quote = "0.1"
+max_unhedged_bps = "5"
+# Operator 2026-09-24: a long residual worth at most this may still open.
+# A short larger than the spot is still refused at any size.
+max_unhedged_quote_usdt = "0.5"
+signal_cooldown_ms = 60000
+interval_seconds = 60
+metadata_refresh_seconds = 1800
+# Reference data is evidence, not a fill quote: a token search hit, a pool's
+# reserve, a daily candle. Measured 2026-09-21: refreshing it inside the cycle
+# stretched those cycles to 347–1 009 s (interval is 60 s), which is how the
+#采样 cadence got lost. It now runs on a hard `reference_budget_seconds` budget
+# and on a slower clock, because nothing downstream needs a five-minute-old
+# daily candle to be five minutes fresher.
+#
+# 2026-09-21 (stability round, stage 1): the refresh now runs on its own worker
+# thread. Only the FIRST round after a start is inline — `reference_cache`
+# decides whether an asset can be screened at all, and starting up with an empty
+# table for a whole cycle would be a new gap rather than a fix. Later rounds are
+# adopted by whichever cycle follows their completion, so a slow public host no
+# longer holds the sampling loop. Per-host concurrency and cooldowns live in
+# `data/hk_reference.py`: `Retry-After` is honoured, the backoff is jittered, and
+# a host with a failure streak gets exactly one probe request at a time.
+reference_refresh_seconds = 900
+reference_budget_seconds = 20
+# Concurrency of the reference fan-out. Tasks are submitted in tier order
+# (`token_reference` → `pool_reference` → daily candles), so this bounds the
+# whole round without letting the display-only reads take a worker from the
+# token identity that an executable candidate depends on. Per-host caps are
+# enforced separately, on top of this.
+reference_workers = 4
+# On-chain is the only 24/7 leg, so it is refreshed on its own clock and keeps
+# running when the HK/US cash sessions are closed.
+onchain_refresh_seconds = 60
+# Pool state is a pricing input, so a cached result is never used indefinitely
+# while the background RPC is stalled.  Two refresh periods is the maximum age.
+pool_state_max_age_ms = 120000
+db = "data/hk_monitor.db"
+# No private exchange keys. Pass --proxy or ARB_HTTP_PROXY at runtime.
+
+[onchain]
+enabled = true
+# Read-only JSON-RPC. No wallet, no key, no transaction is ever sent.
+rpc_url = "https://rpc.xlayer.tech"
+chain_id = "196"
+# Uniswap-V3-style factory used by the reviewed xStocks pools below.
+factory = "0x4b2ab38dbf28d31d467aa8993f6c2585981d6804"
+# Cycle quotes call this QuoterV2 (eth_call). Its factory() is the address
+# above, checked 2026-09-23. Order signature and broadcast stay on OnchainOS.
+pool_quotes = true
+quoter_v2 = "0xd1b797d92d87b688193a2b976efc8d577d204343"
+# A pool below this measured depth is not a price: several X Layer xStocks
+# pools are initialized but hold nothing.
+min_pool_depth_usd = "50"
+min_trade_notional_usd = "10"
+# eth_getLogs is capped at 100 blocks per call on this RPC (≈100s at 1s blocks).
+trade_lookback_blocks = 300
+max_prints_per_asset = 8
+# Issuer token-universe re-scan: new xStocks listings that already have a pool
+# with depth are hot-added to price monitoring and announced on Feishu.
+token_scan_seconds = 1800
+# Only listings in these markets are probed; a full re-probe of names that
+# still have no pool runs every N scans (24 x 30min = 12h).
+# The market is the issuer's `underlying.listingCountry`. On 2026-09-15 the
+# issuer listed 832 assets: US 741, HK 79, GB 1, and 11 US names with the
+# country left null — those stay UNKNOWN and are excluded, never guessed.
+# 2026-09-22（operator 的"美股代币 × OKX 永续扩展计划"）：US 加入**只读扫描**。
+# 同日 operator 进一步指示"现在开始对这114个公司也进行监控"，所以 US 也进了
+# `token_adopt_markets`（见下）：闸门命中 + 池深度达标的美股 listing 会被写进
+# config/discovered_tokens.toml 并进价格监控。扫描范围与采纳范围仍然分开写，
+# 是为了让"扫了但不采纳"永远是一个可表达、可核对的状态，而不是一个隐含默认。
+# 完整计划见 docs/research/us-mapping-2026-09-22.md。
+token_scan_countries = ["HK", "US"]
+# 探测闸门：先取交集，再扫价格（operator 2026-09-22 要求）。
+# 发行方列 754 个美股代币，OKX 只有 181 个股票永续（`instCategory = "3"`），
+# 两者按「发行方 underlyingSymbol == OKX ctValCcy」取交集是 **114** 个
+# （另加 SHEIN 的按名匹配 → 115）。这 114 个才可能成为双腿，其余 640 个扫出来
+# 也只能是不可对冲的行，而扫一遍要花约 19 小时共用代理的时间。
+# 因此这里列出的市场，必须先在 OKX 股票永续名单里命中才会被探测。
+# 只列 US：HK 的可对冲集合还包括 Bybit/Bitget（Gate 已于 2026-09-22 停用，见
+# `venues`），探测范围允许比任何单一场所宽。OKX 名单读不到时不放行（未知 ≠ 可以
+# 全扫），错误写进
+# `run_summary.token_universe_scan.perp_gate.error`。
+# 名单与交集表见 docs/research/us-okx-overlap-2026-09-22.md。
+token_scan_perp_gate_markets = ["US"]
+# 允许被热加入价格监控的市场。2026-09-22 operator 指示："现在开始对这114个公司
+# 也进行监控"，因此 US 从"只读扫描"改为"可采纳"。
+#
+# 采纳仍然有闸门，而且不止一道：只有在**交集 114 之内**（`token_scan_perp_gate_markets`
+# 先按 OKX 股票永续筛过）、并且 X Layer 池**深度 ≥ min_pool_depth_usd** 的 US
+# listing 才会被写进 config/discovered_tokens.toml 并进入价格监控。所以"114"是
+# 上限而不是承诺数：没有池深度的名字扫出来只会进
+# `run_summary.token_universe_scan.skipped_no_depth`。
+#
+# 监控 ≠ 可执行：被采纳的 US 名字 `mapping_verified = false` 且不在执行白名单里，
+# `execution_blockers()` 会写"份额映射未核验"。执行白名单、额度、开关都没动。
+token_adopt_markets = ["HK", "US"]
+# 哪些被采纳的市场同时做 `eth_getLogs` 真实成交打印扫描。这个扫描很贵（实测
+# 2026-09-21：300 区块回溯、8 个标的要 43-176 秒，因为该 RPC 把 eth_getLogs
+# 限制在 100 区块），而美股这一批刚进来时一个都不能执行——先花归档 RPC 换 100+
+# 个名字的成交打印没有意义。港股照旧（这是原本的行为）。要打开美股就直接往这里
+# 加 "US"，重启即生效。
+token_adopt_trade_scan_markets = ["HK"]
+# 1 = 每轮都在游标位置继续扫"范围内、还没被监控"的 listing。这正是 US 加入
+# 扫描后必须的口径：`token_scan_full_every = 24` 时只有"全新 listing"会被探测，
+# 被上限截掉的积压要等下一个整轮（12 小时）才轮到，一遍 US 宇宙要几十天。
+# 闸门生效后一遍要探测的是 114+79 = 193 个 listing ÷ 20 ≈ 10 轮 ≈ 5 小时
+# （闸门之前是 833 个 ≈ 20 小时），之后按游标持续重扫（有池深的名额会被
+# report_only 一直报出来）。
+token_scan_full_every = 1
+# 单轮探测上限。本机所有请求共用一个本地代理、60 秒采样循环也在用它，所以
+# 探测按"每轮 N 个 + 游标轮转"摊开：193 个未监控 listing ÷ 20 ≈ 10 轮 × 30
+# 分钟 ≈ 5 小时扫完一遍，每轮只发 ~20 次 factory batch
+# （`probe_pools_cheap` 把 4 个 getPool 合成一个请求）。
+# 队列长度写在 `run_summary.token_universe_scan.probes_pending_after_cap`。
+# 2026-09-23：采样循环不再为这 100 多个名字发 OnchainOS 探针，池子探测在
+# 后台线程里跑。上一轮 cap=20 时积压还剩 151 个，所以一轮只看得到约 30 个
+# 有池的名字。提到 100，让积压在一两轮扫描里走完；没有池的名字仍然只出现在
+# OKX 价格表上，不会被写成可交易。
+token_scan_max_probes_per_round = 100
+discovered_config = "config/discovered_tokens.toml"
+# Daily depth census (hk-depth-census). While this file is younger than
+# depth_watchlist_max_age_hours, names it recorded as no_depth are not read
+# again and the 30-minute universe probe stays idle. Missing or stale file:
+# no filter. The census itself is a direct X Layer RPC read, not OnchainOS.
+depth_watchlist = "data/depth_watchlist.json"
+depth_watchlist_max_age_hours = 26
+
+[notify]
+# Alerts only fire on a positive net entry basis that clears min_net_edge_bps.
+# A negative net basis is not executable, so it is never announced.
+enabled = true
+# Comma separated, e.g. "webhook,lark_cli" to notify both the group bot and a
+# direct message. A channel without its credentials is dropped, not fatal.
+channel = "webhook"
+# 报警频道（与信号频道分开，2026-09-16 由 operator 指定）。
+# 信号频道（上面的 channel）只发"有机会"：候选信号、新代币发现。
+# 报警频道发"需要人处理"：人工审核（平仓失败/裸腿/未知状态）、自动执行停机、
+# gas 失去赞助、孤儿挂单。两者用不同的群/机器人 webhook，避免"要立刻处理"的
+# 消息被信号刷掉。
+#   alert_channel: webhook | lark_cli | off（留空或缺少凭据时回退到信号频道，
+#                  并在投递结果里标记 fell_back_to_signal —— 报警绝不静默丢失）
+# 报警 webhook 同样是密钥，不写在这里：放在 config/notify.env 的
+#   ARB_FEISHU_ALERT_WEBHOOK=...
+# （scripts/run_hk_monitor.sh 启动时会 source 该文件并导出），或直接 export。
+alert_channel = "webhook"
+alert_webhook_url = ""
+alert_lark_chat_id = ""
+alert_lark_user_id = ""
+alert_lark_identity = "bot"
+# Bot identity is used because the local user token is expired; messages come
+# from the app bot. Set lark_chat_id instead to post into a group.
+lark_identity = "bot"
+lark_user_id = "ou_fc878c61e20cd6947eadbcec01756d88"
+lark_chat_id = ""
+# The webhook URL is a secret and is NOT stored here. It is exported by
+# scripts/run_hk_monitor.sh from config/notify.env (gitignored), or supplied as
+# ARB_FEISHU_WEBHOOK in the environment.
+webhook_url = ""
+cooldown_seconds = 900        # same asset+venue is not re-announced within 15 min
+# 「过门槛但不可执行」的标的用更长的冷却（operator 指定 4 小时，2026-09-16）。
+# 这类消息是信息不是行动号召：实测 KUAISHOU 在 Gate 上毛基差 +97~111 bps，
+# 但该场没有执行适配器、映射也未核验，15 分钟冷却在 100 分钟内发了 7 条几乎相同的
+# 提醒。可执行的候选仍用上面的 15 分钟冷却——那种才值得立刻看。
+# 如果某个标的后来变成可执行，它只需要跨过 15 分钟冷却即可提醒（两个计时器分开记）。
+unexecutable_cooldown_seconds = 14400
+max_alerts_per_cycle = 3
+
+[retention]
+# 原始事件只留最近 48 小时（operator 2026-09-28：再早的，只保留产生过信号的
+# 行，没有信号的直接删）。信号行 = kind `alert`，以及 `basis_evaluation` 里
+# status = conditional_signal。报价、盘口、资金费、run_summary、发现转储都不是
+# 信号，超过 48 小时就删。意图账本 `opportunities` 不在这张事件表里，不剪。
+#
+# 删除前仍把统计写进 event_daily_stats / venue_daily_stats，所以「哪个场馆机会
+# 最多」在原始行删掉之后仍然答得出来。监控进程每 interval_seconds 自己裁一次，
+# 不占用采样线程；`arb-monitor db-retention` 仍可手工先 --dry-run。
+#
+# raw_hours 生效时，不再用按 kind 的天数或行数上限把这 48 小时切短。
+enabled = true
+raw_hours = 48
+keep_signals = true
+default_days = 2      # 只有拿掉 raw_hours 时才退回「按天」
+batch_rows = 20       # 每批删除的行数。发现转储单条约 0.7 MB，批再大写锁会挡住采样
+interval_seconds = 3600
+
+[costs]
+# Recalibrated 2026-09-15 against real fills (scripts/cost_calibration.py).
+#
+# Perpetual leg: six live XIAOMI-USDT-SWAP fills on the real sub-account were
+# all taker (execType=T) and all charged 4.50000 bps. OKX's own schedule for
+# this account reports level VIP1 taker = 0.045%. The model keeps 5 bps, i.e.
+# 0.5 bps above the measured rate, instead of the previous unmeasured 8 bps.
+perp_fee_bps = "5"
+# Maker rate for the perpetual leg, used when `[orders] style = "maker_first"`:
+# a round trip that rests both legs at the touch never crosses the spread, so it
+# pays this instead of the taker rate above.
+#
+# Measured 2026-09-16 on this account: TWO maker fills, both 1.60 bps
+# (`execType=M`) — 10:31:00 sell 3 @3.352 and, in the closing path this model
+# was written for, 11:16:19 buy 3 @3.341 (fee -0.00160368 USDT). Taker fills
+# stay at 4.50 bps. The model charges 2 bps, i.e. 0.4 bps above the measured
+# rate, for the same reason the taker row charges 5 against 4.5: the schedule
+# is not this project's to promise. No rebate is assumed either.
+perp_maker_fee_bps = "2"
+perp_maker_fee_measured = "1.6"
+perp_maker_fee_measured_samples = "2"
+maker_close_fill_seconds_measured = "147"
+spot_roundtrip_spread_measured_bps = "11.29"
+realized_roundtrip_bps_measured = "19.9"
+# On-chain leg: the pool ask already carries the 0.05% pool fee, and no
+# separate provider fee was visible in the receipt. Measured model-vs-fill on
+# the 4 USDG test was +0.61 bps (the model was slightly more expensive than the
+# realised price), so no extra spot surcharge is added - charging one would
+# count the same cost twice.
+spot_fee_bps = "0"
+# Slippage and failure buffers are NOT yet measured at meaningful size: the
+# quote predicted 1.170314949169009549 wXIAOx and the fill delivered exactly
+# that, i.e. 0 bps against the quote, but that is a 4 USD order in a 300k USD
+# pool. They stay at 5 bps each until a larger fill is measured.
+slippage_bps = "5"
+failure_bps = "5"
+financing_quote = "0"
+# Operator decision, 2026-09-16: funding is NOT part of the cost model — most
+# intervals are ~0 on this asset ("在测算成本的时候不考虑资金费，因为大部分时间都是0").
+# The protection against the exception is the funding-cost stop in
+# config/automation_policy.toml ([funding_exit]): once the funding actually paid
+# reaches 1 USD, the group is closed before the next settlement whatever the
+# basis is doing. So this zero is a modelling choice with a separate stop behind
+# it, not an assumption that funding never matters.
+funding_cashflow_quote = "0"
+# Gas on X Layer was measured as 0 (sponsored): receipt effectiveGasPrice=0 and
+# l1Fee=0 on the approve, the spot buy and the spot sell of the 2026-09-15
+# round trip. That is a current property of the chain/route, not a contract:
+# it is written here explicitly (instead of left unknown) so the pairing gate
+# can be evaluated, and `gas_watch` re-reads real receipts every 15 minutes and
+# raises a red banner on the dashboard the moment any transaction pays gas.
+#
+# Verified 2026-09-16 against three complete round trips at 3 shares each
+# (≈10.2 USDG), plus the earlier 1-share and 4-USDG cycles:
+#   perpetual : 10 fills, every one taker, every one 4.50000 bps (VIP1 schedule
+#               agrees). The model charges 5 bps, i.e. 0.5 bps conservative per
+#               leg, 1 bp per round trip.
+#   on-chain  : compared against the pool price at the same moment and on the
+#               side actually traded — buys vs the ask, sells vs the bid — the
+#               model is optimistic by ~0.95 bps on entry and conservative by
+#               ~0.3 bps on exit. Net ~1.3 bps per round trip, inside the 5 bps
+#               slippage buffer (which is a buffer, not a measurement).
+#   round trip: realised 8.9 / 11.3 / 11.4 bps of spot spread against a model
+#               prediction of ~10.7 bps.
+#   gas       : 0 on every transaction we sent, re-checked continuously by
+#               gas_watch, which turns the dashboards red if that ever changes.
+# Scope: measured at ≤11 USDG per leg and with no funding-fee window crossed.
+# The exit assumption (3 bps) is the operator's scenario, not a measurement.
+verified = true
+evidence = "2026-09-16 三个 3 股往返（约 10.2 USDG/腿）：永续 10 笔全 taker 全 4.5 bps（模型 5 bps）/ 链上腿与同时刻池价买卖两侧比较，模型开仓乐观 0.95 bps、平仓保守 0.3 bps / 现货往返实测 8.9–11.4 bps vs 模型 10.7 bps / gas 全程 0（gas_watch 持续复核）"
+# The maker close (task A, 2026-09-16 11:13–11:16, XIAOMI 3 shares) adds the
+# first measured *maker* round trip. Full decomposition, including what the
+# 19.9 bps was made of, in docs/research/cost-calibration-2026-09-16-maker.md:
+#   entry  taker sell 3 @3.341, 4.504 bps
+#   close  maker buy  3 @3.341, 1.603 bps, filled after 147 s at bid1 (window 600 s)
+#   on-chain buy 3.000752 shares for 10.051960 USDG, sell 3 shares for 10.038110
+#          → realised round-trip spread 11.29 bps (model was ~10.7 at the time)
+#   dust   0.000752 shares left unsold by whole-share sizing ≈ 2.5 bps
+#   total  -0.01996 USD on ~10.04 USD notional = 19.9 bps, of which 6.1 bps is
+#          perp fees and 11.3 bps the on-chain spread; the basis itself moved
+#          +1.9 bps in our favour, which is why the two do not add to 19.9.
+maker_evidence = "2026-09-16 11:13–11:16 XIAOMI 3 股平仓：挂 bid1 3.341，147 秒成交，maker 费率 1.603 bps（execType=M）；链上买 3.000752 枚花 10.051960 USDG、卖 3 枚得 10.038110 USDG，往返价差实测 11.29 bps（同期模型约 10.7 bps）；整股取整尘埃 0.000752 枚≈2.5 bps；gas=0。见 docs/research/cost-calibration-2026-09-16-maker.md"
+perp_fee_bps_measured = "4.5"
+perp_fee_measured_samples = "6"
+spot_model_vs_fill_bps = "0.61"
+gas_measured_usdt = "0"
+# Explicit round-trip gas budget in USDT, backed by the receipts above.
+# If X Layer stops sponsoring gas this value is wrong, which is exactly what
+# gas_watch is for: it watches real receipts, not this number.
+roundtrip_gas_budget_usdt = "0"
+valid_until_ms = 1792166399000
+[scenario]
+# Exit policy, given by the operator on 2026-09-16: hold until the basis
+# converges back to ~3 bps and close there. The strategy refuses to assume a
+# future basis on its own, so the assumption lives here, explicitly, and the
+# conditional profit is computed as: entry basis - assumed exit basis - costs.
+# A smaller number is a stricter test; it is not a promise that convergence
+# happens, only the scenario the entry is being judged against.
+target_exit_basis_bps = "3"
+exit_policy = "hold until net basis converges to <= target, then sell spot and buy back the entire short"
+
+[strategy]
+# Every trade has to carry a profit, not just break even. The alert threshold is
+# therefore computed from three numbers, all of them editable here:
+#
+#   required gross basis = 往返成本(实测) + edge_buffer_bps + expected_profit_bps
+#
+# `edge_buffer_bps` is the allowance for the things that are not measured yet
+# (fill slippage, the entry quote ageing, a maker order that has to be re-joined,
+# the spot leg delivering a few bps more or less).
+# `expected_profit_bps` is the reward the trade has to offer for the risk of
+# holding it until the basis converges.
+edge_buffer_bps = "5"
+expected_profit_bps = "20"
+
+[gas_watch]
+# Sponsorship is a current property of X Layer, not a contract: re-read real
+# receipts on a clock and warn if anything starts paying gas.
+enabled = true
+check_seconds = 900
+history_limit = 10
+
+[streams.lighter]
+# Lighter is the only venue we read whose REST book has **no** time field at all
+# (`/api/v1/orderBookOrders` returns code/total_asks/asks/total_bids/bids and
+# nothing else — read off its OpenAPI definition on 2026-09-22). Until now the
+# adapter anchored freshness to the market's latest *trade*, so a market that was
+# being re-quoted but not traded read as stale — measured: 94.5% of Lighter's rows
+# carried a stale flag over a 54-hour window, and the venue's own venue-level
+# candidate rate (67.1%) came off 164 evaluable rows.
+#
+# Its WebSocket does publish a clock: each `update/order_book` frame carries
+# `timestamp` (venue ms), `order_book.last_updated_at` (venue microseconds) and
+# `offset`/`nonce`/`begin_nonce`. The monitor holds that subscription and stamps
+# the REST book with the venue's own timestamp, read *before* the REST call.
+#
+# The frames are a clock, not a book: the venue documents that this channel sends
+# "a complete snapshot on subscription, but only state changes after that", and
+# the live frames bear that out (TENCENT/XIAOMI usually arrive as one side with
+# 1–3 levels). Rebuilding a book from those deltas would mean trusting a nonce
+# chain we cannot replay — a missed update silently becomes a wrong book — so
+# levels stay on the REST snapshot and only the clock comes from the socket.
+# Read-only: subscribe, keepalive ping, no transaction.
+#
+# This does not loosen any gate. A book the venue has not re-published inside the
+# strategy's own `max_age_ms` (15 s) is still rejected — see risk/hk_basis.py.
+enabled = true
+url = "wss://mainnet.zklighter.elliot.ai/stream"
+
+[probe]
+# Exact liquidity-source names/IDs from verified provider responses.
+# Empty means UNKNOWN; an AMM route is never proof of the xStocks RFQ channel.
+special_route_ids = []
+anchor_tolerance_bps = "20"
+min_overnight_move_bps = "50"
+min_observations = 3
+
+[calendar]
+years = [2026]
+source = "https://www.gov.hk/en/about/abouthk/holiday/2026.htm"
+holidays = [
+  "2026-01-01", "2026-02-17", "2026-02-18", "2026-02-19",
+  "2026-04-03", "2026-04-04", "2026-04-06", "2026-04-07",
+  "2026-05-01", "2026-05-25", "2026-06-19", "2026-07-01",
+  "2026-09-26", "2026-10-01", "2026-10-19", "2026-12-25", "2026-12-26",
+]
+half_days = ["2026-02-16", "2026-12-24", "2026-12-31"]
+extra_closures = []
+
+[quote_token]
+symbol = "USDC"
+address = "0xb6ceceab302e2e4948951ee7843fc24e92933061"
+decimals = 6
+
+[[tokens]]
+asset = "XIAOMI"
+name = "小米"
+hk_code = "1810"
+symbol = "wXIAOx"
+address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+chain_id = "196"
+decimals = 18
+pool = "0xdc7f2f41b48cd4f482d8c900ac2fa1b5ad058417"
+# Verified 2026-09-15 from four independent reads; re-check with
+# `PYTHONPATH=src .venv/bin/python -m arb_monitor mapping-verify --asset XIAOMI`.
+#   issuer      : docs.xstocks.fi — "each xStock token is fully collateralized
+#                 1:1 by the corresponding underlying asset held with a
+#                 regulated custodian"; XIAOx ISIN CH1580497480 → underlying
+#                 1810 (Xiaomi) ISIN KYG9830T1067.
+#   on-chain    : wrapper 0x076cf393… is the issuer's own wrapperAddressV2 for
+#                 XIAOx 0xfb4f81f5…; wrapper.totalSupply() == native.balanceOf(wrapper)
+#                 exactly (49,469.801027291989008932), so the wrapper is 1:1 by
+#                 reserve rather than by branding.
+#   corporate   : native multiplier() == 1e18 exactly → 1 token = 1 share.
+#                 The issuer rebases balances on dividends/splits, so this stays
+#                 true through corporate actions — but it must be re-read.
+#   exchange    : OKX XIAOMI-USDT-SWAP ctVal=1 ctValCcy=XIAOMI ctMult=1, and
+#                 OKX's published index XIAOMI-USDT is 71.8% Binance HK1810/USDT
+#                 (the HK share converted at USD/HKD ≈ 7.84) plus 7.54% OKX spot
+#                 XXIAOMI/USDT — one contract, one share.
+# valid_until_ms bounds the claim; a multiplier change, a new wrapper version or
+# a contract-spec change must be re-verified before it is trusted again.
+mapping_verified = true
+trade_scan = true
+# Reviewed on-chain pools. Depth is measured on every read; an empty pool is
+# reported as depth 0 and never becomes a price.
+pools = [
+  { address = "0xdc7f2f41b48cd4f482d8c900ac2fa1b5ad058417", base_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+# Do not assume wXIAOx == XIAOx or that the perp is one share: both are read
+# from the contracts/exchange and re-checked by `mapping-verify`.
+# NOTE: a sub-table must close the token block — anything written after it
+# belongs to the sub-table, not to the token.
+[tokens.mappings."okx:XIAOMI-USDT-SWAP"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+verified = true
+valid_until_ms = 1792079999000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "docs.xstocks.fi 1:1 collateralisation + XIAOx ISIN CH1580497480 → 1810 ISIN KYG9830T1067 + wrapper reserve == supply on X Layer + multiplier()=1e18 + OKX ctVal=1/ctValCcy=XIAOMI/ctMult=1（2026-09-15 核验，见 docs/research/mapping-xiaomi-2026-09-15.md）"
+
+# gate / bybit / bitget added 2026-09-17 (operator: "补齐 gate/bybit/bitget 另外
+# 5 个标的的映射核验"). Layers 1–3 are the same evidence as the OKX row above;
+# layer 4 is per venue, and it is NOT a 1:1 assumption:
+#   gate:XIAOMI_USDT   type=direct quanto_multiplier=1 → 1 张 = 1 股
+#   bybit:XIAOMIUSDT   linear perp, no size field → 1 张 = 1 币；自带
+#                      symbolType=stock marketRegion=HK underlyingTicker=01810
+#   bitget:XIAOMIUSDT  sizeMultiplier=0.01 → 1 张 = 0.01 股
+# `perp_contract_multiplier` is the drift alarm: `mapping-verify` fails if the
+# venue ever changes the contract's size.
+#
+# ⚠️ 2026-09-22（operator："我决定不使用这个交易所"）：**Gate 已停止监控**
+# （`[monitor] venues` 里已删掉 "gate"）。下面 6 个 `gate:` 映射块**保留**，作为
+# 已核验的历史证据（每张 = 几股这件事仍然是真的），但**不代表我们还在监控或
+# 打算使用 Gate**；`mapping_verified` 只回答"1 张 = 几股"，不回答"要不要用这家"。
+# 需要彻底删除这 6 个块，由 operator 明说。
+[tokens.mappings."gate:XIAOMI_USDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "2026-09-17 四层：XIAOx ISIN CH1580497480 → 1810 KYG9830T1067；wrapper 储备 == native balanceOf(wrapper) = 49469.801027291989008932；multiplier()=1.0；gate XIAOMI_USDT type=direct quanto_multiplier=1 → 1 张 = 1 股。独立交叉核对：gate 自己的 24h volume_24h_quote/(volume_24h×last)=1.0095（≈1）。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."bybit:XIAOMIUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "2026-09-17 四层：同上链上/发行方证据；bybit XIAOMIUSDT 为线性永续（无尺寸字段 → 1 张 = 1 股），自带 symbolType=stock marketRegion=HK underlyingTicker=01810 fullName=Xiaomi，与发行方的 1810 一致。独立交叉核对：bybit turnover24h/(volume24h×last)=1.0091（≈1，说明 volume24h 单位就是标的币）。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:XIAOMIUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "2026-09-17 四层：同上链上/发行方证据；bitget XIAOMIUSDT sizeMultiplier=0.01（BTCUSDT 为 0.0001，可交叉对照）→ 1 张 = 0.01 股，minTradeUSDT=5、isRwa=YES、baseCoin=XIAOMI。深度数量单位按合约计，已由跨场所基差一致性佐证（若按币计，基差会放大 100 倍并与 gate/bybit/链上不符）。执行仍被阻断：bitget 无执行适配器。"
+
+[tokens.mappings."aster:XIAOMIUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "2026-09-17 四层：同上链上/发行方证据；aster XIAOMIUSDT baseAsset=XIAOMI quoteAsset=USDT contractType=PERPETUAL，每张规模由交易所自己的 24h 量比佐证 quoteVolume/(volume×last)=0.9988 → 1 张 = 1 股；minNotional=5、stepSize=1（只能整股）。执行仍被阻断：aster 无执行适配器。"
+
+[tokens.mappings."lighter:203"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "XIAOx"
+token_symbol = "XIAOx"
+token_isin = "CH1580497480"
+underlying_isin = "KYG9830T1067"
+native_address = "0xfb4f81f511b40b80996062032260a539e60adfc0"
+wrapper_address = "0x076cf393e701839fc7a5832d2c68aafa235682ae"
+perp_value_currency = "XIAOMI"
+evidence = "2026-09-17 四层：同上链上/发行方证据；lighter market_id=203 symbol=XIAOMI market_type=perp status=active，交易所自己公布 multiplier=1.000000000000000000（这就是每张对应的标的量，读出来而不是假设）；min_base_amount=2.50、min_quote_amount=10。注意：Lighter 的 REST 盘口没有自带时间戳，本仓库用该市场最新成交时间作为场所时钟（会失败关闭：没有近期成交就算陈旧）。执行仍被阻断：lighter 无执行适配器。"
+
+[[tokens]]
+asset = "TENCENT"
+name = "腾讯"
+hk_code = "0700"
+symbol = "wTCENTx"
+address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+chain_id = "196"
+decimals = 18
+pool = "0xc89d8b547cea7cdeaa7474e7a90b6bad01fe992f"
+# Verified 2026-09-17 with the same four-layer method as XIAOMI/KUAISHOU
+# (docs/research/mapping-hk-venues-2026-09-17.md):
+#   issuer    : api.backed.fi TCENTx ISIN CH1580497357 → underlying 700
+#               (Tencent Holdings) ISIN KYG875721634, listingCountry HK, HKD
+#   on-chain  : wrapper 0x41333df9… holds native TCENTx
+#               0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42 — totalSupply() ==
+#               native.balanceOf(wrapper) exactly; multiplier() = 1.0
+#   exchange  : gate 1 张 = 0.1 股（quanto_multiplier=0.1，与 24h 成交量比
+#               0.1011 交叉一致）；bybit 1 张 = 1 股（underlyingTicker=00700）；
+#               bitget 1 张 = 0.01 股（sizeMultiplier=0.01）
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0xc89d8b547cea7cdeaa7474e7a90b6bad01fe992f", base_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."gate:TENCENT_USDT"]
+# Gate 已停用（2026-09-22，见 `venues`）：保留为历史证据，不参与监控。
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17 四层：TCENTx ISIN CH1580497357 → 700 KYG875721634；wrapper 储备==供给；multiplier()=1.0；gate TENCENT_USDT type=direct quanto_multiplier=0.1 → **1 张 = 0.1 股**（不是 1:1！）。独立交叉核对：gate 自己 24h volume_24h_quote/(volume_24h×last)=0.1011，与 0.1 一致。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."bybit:TENCENTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17 四层：同上；bybit TENCENTUSDT 线性永续 1 张 = 1 股，自带 symbolType=stock marketRegion=HK underlyingTicker=00700 fullName=Tencent Holdings Ltd。独立交叉核对：turnover24h/(volume24h×last)=1.0123。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:TENCENTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17 四层：同上；bitget TENCENTUSDT sizeMultiplier=0.01 → 1 张 = 0.01 股，baseCoin=TENCENT、isRwa=YES、minTradeUSDT=5。执行仍被阻断：bitget 无执行适配器。"
+
+[tokens.mappings."aster:TENCENTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17：aster TENCENTUSDT baseAsset=TENCENT quoteAsset=USDT contractType=PERPETUAL；24h 量比 quoteVolume/(volume×last)=1.0183 → 1 张 = 1 股；minNotional=5、stepSize=0.01。执行仍被阻断：aster 无执行适配器。"
+
+[tokens.mappings."lighter:201"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17：lighter market_id=201 symbol=TENCENT perp status=active，multiplier=1.000000000000000000（交易所公布）；min_base_amount=0.100、min_quote_amount=10；盘口时间戳同 lighter:203 的说明。执行仍被阻断：lighter 无执行适配器。"
+
+[tokens.mappings."binance:TENCENTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "TCENTx"
+token_symbol = "TCENTx"
+token_isin = "CH1580497357"
+underlying_isin = "KYG875721634"
+native_address = "0xfa15e42c18cf57aeef4b1bac1cee7754af7cfe42"
+wrapper_address = "0x41333df9e7639188bbfca5522dc4844398af9f9e"
+perp_value_currency = "TENCENT"
+evidence = "2026-09-17：binance TENCENTUSDT 是 USD 计价的名称型合约（last=54.61 USD），与 binance 的 HK0700USDT（428.16，即 HKD，比值 7.8403=USD/HKD）是两套不同计价——后者的代码型命名在本仓库一律排除。每张规模：quoteVolume/(volume×last)=1.0085 → 数量单位就是标的币/股（Binance 线性永续 1 张 = 1 单位）。underlyingType=HK_EQUITY、quoteAsset=USDT、minNotional=5。执行仍被阻断：binance 无执行适配器。"
+
+[[tokens]]
+asset = "POPMART"
+name = "泡泡玛特"
+hk_code = "9992"
+symbol = "wPOPMTx"
+address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+chain_id = "196"
+decimals = 18
+# Verified 2026-09-16 along with the rest of the HK set: issuer 1:1, token ISIN
+# CH1580497662 → underlying 9992 (KYG7170M1033), wrapper reserve == supply,
+# multiplier()=1.0, OKX ctVal=1/ctValCcy=POPMART/ctMult=1.
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x4cd5c98fed5cc94876078cfb914f71b33a83152d", base_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:POPMART-USDT-SWAP"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-16：POPMTx ISIN CH1580497662 → 9992 ISIN KYG7170M1033；wrapper 储备==供给；multiplier()=1.0；OKX ctVal=1/ctValCcy=POPMART/ctMult=1（复跑 arb_monitor mapping-verify --asset POPMART）"
+
+[tokens.mappings."gate:POPMART_USDT"]
+# Gate 已停用（2026-09-22，见 `venues`）：保留为历史证据，不参与监控。
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17 四层：POPMTx ISIN CH1580497662 → 9992 KYG7170M1033；wrapper 储备==供给；multiplier()=1.0；gate POPMART_USDT quanto_multiplier=0.1 → **1 张 = 0.1 股**。独立交叉核对：gate 24h volume_24h_quote/(volume_24h×last)=0.1005。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."bybit:POPMARTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17 四层：同上；bybit POPMARTUSDT 1 张 = 1 股，underlyingTicker=09992、fullName=Pop Mart International Group Limited、symbolType=stock/marketRegion=HK。独立交叉核对：turnover24h/(volume24h×last)=0.9999。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:POPMARTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17 四层：同上；bitget POPMARTUSDT sizeMultiplier=0.01 → 1 张 = 0.01 股，baseCoin=POPMART、isRwa=YES、minTradeUSDT=5。执行仍被阻断：bitget 无执行适配器。"
+
+[tokens.mappings."binance:POPMARTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17：binance POPMARTUSDT 为 USD 计价的名称型合约（last=19.43 USD，与 gate/bybit/bitget 同价）；quoteVolume/(volume×last)=1.0003 → 1 张 = 1 股。underlyingType=HK_EQUITY、quoteAsset=USDT、minNotional=5、stepSize=0.01。执行仍被阻断：binance 无执行适配器。"
+
+[tokens.mappings."aster:POPMARTUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17：aster POPMARTUSDT baseAsset=POPMART quoteAsset=USDT；24h 量比 quoteVolume/(volume×last)=0.9990 → 1 张 = 1 股；minNotional=5、stepSize=0.1。注意该场 24h 成交量极小（0.1 股），深度很可能不足以成交。执行仍被阻断：aster 无执行适配器。"
+
+[tokens.mappings."lighter:204"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "POPMTx"
+token_symbol = "POPMTx"
+token_isin = "CH1580497662"
+underlying_isin = "KYG7170M1033"
+native_address = "0x3a0a47a9c2713a7049d1052cc8ebd39c41570580"
+wrapper_address = "0x4ebf5fd25b02022afad96e2fa25da54a246fded0"
+perp_value_currency = "POPMART"
+evidence = "2026-09-17：lighter market_id=204 symbol=POPMART perp status=active，multiplier=1.000000000000000000；min_base_amount=0.350、min_quote_amount=10；盘口时间戳同 lighter:203 的说明。执行仍被阻断：lighter 无执行适配器。"
+
+[[tokens]]
+asset = "MEITUAN"
+name = "美团"
+hk_code = "3690"
+symbol = "wMEITx"
+address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+chain_id = "196"
+decimals = 18
+# Verified 2026-09-17 (four layers, same method):
+#   issuer    : MEITx ISIN CH1580497530 → underlying 3690 (Meituan) ISIN
+#               KYG596691041, listingCountry HK, HKD
+#   on-chain  : native MEITx 0x0024af2ca56e822ad487c0bedc52a82028a55f86;
+#               wrapper.totalSupply() == native.balanceOf(wrapper); multiplier()=1.0
+#   exchange  : gate 1 张 = 0.1 股（quanto_multiplier=0.1，24h 量比 0.1011 交叉）；
+#               bybit 1 张 = 1 股（underlyingTicker=03690）；bitget 1 张 = 0.01 股
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x54e89e9acafb073e7fd8471312e753a661b470c7", base_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."gate:MEITUAN_USDT"]
+# Gate 已停用（2026-09-22，见 `venues`）：保留为历史证据，不参与监控。
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "MEITx"
+token_symbol = "MEITx"
+token_isin = "CH1580497530"
+underlying_isin = "KYG596691041"
+native_address = "0x0024af2ca56e822ad487c0bedc52a82028a55f86"
+wrapper_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+perp_value_currency = "MEITUAN"
+evidence = "2026-09-17 四层：MEITx ISIN CH1580497530 → 3690 KYG596691041；wrapper 储备==供给；multiplier()=1.0；gate MEITUAN_USDT quanto_multiplier=0.1 → **1 张 = 0.1 股**。独立交叉核对：gate 24h volume_24h_quote/(volume_24h×last)=0.1011。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."bybit:MEITUANUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "MEITx"
+token_symbol = "MEITx"
+token_isin = "CH1580497530"
+underlying_isin = "KYG596691041"
+native_address = "0x0024af2ca56e822ad487c0bedc52a82028a55f86"
+wrapper_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+perp_value_currency = "MEITUAN"
+evidence = "2026-09-17 四层：同上；bybit MEITUANUSDT 1 张 = 1 股，underlyingTicker=03690、fullName=Meituan。独立交叉核对：turnover24h/(volume24h×last)=1.0088。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:MEITUANUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "MEITx"
+token_symbol = "MEITx"
+token_isin = "CH1580497530"
+underlying_isin = "KYG596691041"
+native_address = "0x0024af2ca56e822ad487c0bedc52a82028a55f86"
+wrapper_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+perp_value_currency = "MEITUAN"
+evidence = "2026-09-17 四层：同上；bitget MEITUANUSDT sizeMultiplier=0.01 → 1 张 = 0.01 股，baseCoin=MEITUAN、isRwa=YES、minTradeUSDT=5。执行仍被阻断：bitget 无执行适配器。"
+
+[tokens.mappings."binance:MEITUANUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "MEITx"
+token_symbol = "MEITx"
+token_isin = "CH1580497530"
+underlying_isin = "KYG596691041"
+native_address = "0x0024af2ca56e822ad487c0bedc52a82028a55f86"
+wrapper_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+perp_value_currency = "MEITUAN"
+evidence = "2026-09-17：binance MEITUANUSDT 为 USD 计价的名称型合约（last=9.28 USD）；quoteVolume/(volume×last)=1.0136 → 1 张 = 1 股。underlyingType=HK_EQUITY、quoteAsset=USDT、minNotional=5。执行仍被阻断：binance 无执行适配器。"
+
+[tokens.mappings."aster:MEITUANUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "MEITx"
+token_symbol = "MEITx"
+token_isin = "CH1580497530"
+underlying_isin = "KYG596691041"
+native_address = "0x0024af2ca56e822ad487c0bedc52a82028a55f86"
+wrapper_address = "0xad1b65c8556957cf23d1b5e9accdc449b415fa97"
+perp_value_currency = "MEITUAN"
+evidence = "2026-09-17：aster MEITUANUSDT baseAsset=MEITUAN quoteAsset=USDT；24h 量比 quoteVolume/(volume×last)=1.0018 → 1 张 = 1 股；minNotional=5、stepSize=0.01。执行仍被阻断：aster 无执行适配器。"
+
+[[tokens]]
+asset = "KUAISHOU"
+name = "快手"
+hk_code = "1024"
+symbol = "wKUAIx"
+# Wrapper address from the issuer's X Layer deployment; the native KUAIx token
+# has no usable pool (only the wrapper does).
+address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4"
+chain_id = "196"
+decimals = 18
+pool = "0x9d5d95416412643004af849e012c894d4689a0f2"
+trade_scan = true
+pools = [
+  { address = "0x9d5d95416412643004af849e012c894d4689a0f2", base_address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+# Verified 2026-09-16 with the same four-layer method as XIAOMI (see
+# docs/research/mapping-kuaishou-2026-09-16.md). All four layers passed:
+#   issuer      : api.backed.fi KUAIx ISIN CH1588657986 → 1024.HK ISIN
+#                 KYG532631028, listingCountry HK, currency HKD; wrapper_address
+#                 = the address our pool trades, and its on-chain symbol() reads
+#                 back as wKUAIx.
+#   on-chain    : wrapper.asset() = 0xfa8a6a57… (native KUAIx);
+#                 wrapper.totalSupply() == native.balanceOf(wrapper)
+#                 = 12,382.795636306 tokens exactly; native.multiplier() = 1.0.
+#   exchange    : gate:KUAISHOU_USDT type=direct quanto_multiplier=1;
+#                 bybit:KUAISHOUUSDT symbolType=stock marketRegion=HK
+#                 underlyingTicker=01024 (1 contract = 1 share, no size field);
+#                 bitget:KUAISHOUUSDT sizeMultiplier=0.01 → **1 contract = 0.01
+#                 share**, which is why the contract multiplier, not a "1:1"
+#                 assumption, has to be used for sizing.
+# Consequence: the +87…+116 bps basis measured on those venues is a real price
+# difference, not a unit artefact. It is still not executable: none of the three
+# venues has an execution adapter (OKX does not list KUAISHOU at all).
+mapping_verified = true
+[tokens.mappings."gate:KUAISHOU_USDT"]
+# Gate 已停用（2026-09-22，见 `venues`）：保留为历史证据，不参与监控。
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "KUAIx"
+token_symbol = "KUAIx"
+token_isin = "CH1588657986"
+underlying_isin = "KYG532631028"
+native_address = "0xfa8a6a57fc83e416cf45b04b7b92b4f48da9e7b8"
+wrapper_address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4"
+perp_value_currency = "KUAISHOU"
+evidence = "2026-09-16 四层核验：发行方 KUAIx ISIN CH1588657986 → 1024.HK ISIN KYG532631028（listingCountry=HK/HKD）；wrapper 储备 12382.795636306 == 供应（native KUAIx 0xfa8a6a57…，multiplier()=1.0）；Gate quanto_multiplier=1 type=direct → 1 张 = 1 股。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."aster:KUAISHOUUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "KUAIx"
+token_symbol = "KUAIx"
+token_isin = "CH1588657986"
+underlying_isin = "KYG532631028"
+native_address = "0xfa8a6a57fc83e416cf45b04b7b92b4f48da9e7b8"
+wrapper_address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4"
+perp_value_currency = "KUAISHOU"
+evidence = "2026-09-17：aster KUAISHOUUSDT baseAsset=KUAISHOU quoteAsset=USDT；24h 量比 quoteVolume/(volume×last)=0.9980 → 1 张 = 1 股；minNotional=5、stepSize=0.01。执行仍被阻断：aster 无执行适配器。"
+
+[tokens.mappings."bybit:KUAISHOUUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "KUAIx"
+token_symbol = "KUAIx"
+token_isin = "CH1588657986"
+underlying_isin = "KYG532631028"
+native_address = "0xfa8a6a57fc83e416cf45b04b7b92b4f48da9e7b8"
+wrapper_address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4"
+perp_value_currency = "KUAISHOU"
+evidence = "2026-09-16：Bybit instruments-info 自带 symbolType=stock / marketRegion=HK / underlyingTicker=01024 / fullName=Kuaishou Technology，线性永续数量单位即标的币（无 size 字段），minOrderQty=0.1、tickSize=0.01 → 1 张 = 1 股。链上/发行方证据同上。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:KUAISHOUUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "KUAIx"
+token_symbol = "KUAIx"
+token_isin = "CH1588657986"
+underlying_isin = "KYG532631028"
+native_address = "0xfa8a6a57fc83e416cf45b04b7b92b4f48da9e7b8"
+wrapper_address = "0x096369b9b197bcbf669a3bc827aa119d80d891e4"
+perp_value_currency = "KUAISHOU"
+evidence = "2026-09-16：Bitget V2 contracts 的 sizeMultiplier=0.01（BTCUSDT 为 0.0001，可交叉对照）→ **1 张 = 0.01 股**，minTradeNum=0.01、pricePlace=3、symbolStatus=normal、isRwa=YES；ccxt 统一接口对同一合约报 contractSize=1，与交易所自身字段矛盾，因此本仓库以交易所字段为准并记录差异。价格刻度（3.805 USDT/股）与链上代币一致，故 shares_per_perp_unit=1、乘数按 0.01 用于张数换算。执行仍被阻断：bitget 无执行适配器。"
+
+[[tokens]]
+asset = "SHEIN"
+name = "SHEIN"
+hk_code = "625"
+symbol = "wSHEINx"
+address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+chain_id = "196"
+decimals = 18
+pool = "0xf1ef85ce4691e94a32064b59e766c42183b44497"
+# Verified 2026-09-16: issuer 1:1, token ISIN CH1588660667 → underlying 625
+# (KYG237451052), wrapper reserve == supply, multiplier()=1.0, and the issuer's
+# own X Layer wrapperAddressV2 is exactly the address above.
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0xf1ef85ce4691e94a32064b59e766c42183b44497", base_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:SHEIN-USDT-SWAP"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-16：SHEINx ISIN CH1588660667 → 625 ISIN KYG237451052；wrapper 储备==供给；multiplier()=1.0；OKX ctVal=1/ctValCcy=SHEIN/ctMult=1（复跑 arb_monitor mapping-verify --asset SHEIN）"
+
+[tokens.mappings."gate:SHEIN_USDT"]
+# Gate 已停用（2026-09-22，见 `venues`）：保留为历史证据，不参与监控。
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-17 四层：SHEINx ISIN CH1588660667 → 625 KYG237451052；wrapper 储备==供给；multiplier()=1.0；gate SHEIN_USDT quanto_multiplier=1 → 1 张 = 1 股。独立交叉核对：gate 24h volume_24h_quote/(volume_24h×last)=0.9958。执行仍被阻断：gate 无执行适配器。"
+
+[tokens.mappings."bybit:SHEINUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-17 四层：同上；bybit SHEINUSDT 1 张 = 1 股，symbolType=stock marketRegion=HK；注意它的 underlyingTicker 是字符串 SHEIN 而不是数字港股代码（其余五只都是补零代码），核验按代号匹配。独立交叉核对：turnover24h/(volume24h×last)=1.0065。执行仍被阻断：bybit 无执行适配器。"
+
+[tokens.mappings."bitget:SHEINUSDT"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "0.01"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-17 四层：同上；bitget SHEINUSDT sizeMultiplier=0.01 → 1 张 = 0.01 股，baseCoin=SHEIN、isRwa=YES、minTradeUSDT=5。执行仍被阻断：bitget 无执行适配器。"
+
+[tokens.mappings."hyperliquid:xyz:SHEIN"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-17：Hyperliquid 的股票永续在 builder dex xyz 里（不是主 universe），标的名为 xyz:SHEIN。核查：meta 中 name=xyz:SHEIN、szDecimals=1；同刻 markPx=5.0434/oraclePx=5.0386，与链上代币价（≈5.0）同量级 → 1 张 = 1 币 = 1 股。该场没有在 meta 里公布每标的最小名义金额，因此 min_notional 记为 0（未知）而不是猜一个数。执行仍被阻断：hyperliquid 无执行适配器。"
+
+[tokens.mappings."lighter:230"]
+shares_per_token = "1"
+shares_per_perp_unit = "1"
+quote_to_usdt = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792166399000
+issuer_symbol = "SHEINx"
+token_symbol = "SHEINx"
+token_isin = "CH1588660667"
+underlying_isin = "KYG237451052"
+native_address = "0x4d0ba049c430a7a80a61e7ebdf50b6daac6c3bd6"
+wrapper_address = "0xff637d2d435d6745df3faf61272b1216e7e8b727"
+perp_value_currency = "SHEIN"
+evidence = "2026-09-17：lighter market_id=230 symbol=SHEIN perp status=active，multiplier=1.000000000000000000；min_base_amount=1.00、min_quote_amount=10；盘口时间戳同 lighter:203 的说明。执行仍被阻断：lighter 无执行适配器。"
+
+# ---------------------------------------------------------------------------
+# US xStocks: the *wrapper* is the tradable token, exactly as for Hong Kong.
+#
+# Fixed 2026-09-22. These seven blocks used to name the issuer's **native**
+# token (AAPLx 0x9d275685…), whose X Layer pools are initialized but empty
+# (measured depth: AAPL 0, MSFT 0, META 0, AMZN 1e-6 USD, GOOGL 1e-6 USD,
+# NVDA 2e-6 USD, TSLA 0.03/0.40 USD) — the depth is in the wrapper pools, the
+# same shape Hong Kong has always had (symbol = "wXIAOx", address =
+# wrapperAddressV2). The native pools were never a market, so every US row in
+# the boards was built on an initialisation price.
+#
+# Wrapper pools below are the deepest measured for each name on 2026-09-22
+# (factory sweep: 4 stablecoins × 4 fee tiers, 38 pools found):
+#   AAPLx/USDG 411,631 USD · NVDAx/USDG 645,436 · TSLAx/USDC 400,853 ·
+#   MSFTx/USDG 306,316 · AMZNx/USDG 66,356 · METAx/USDG 227,684 ·
+#   GOOGLx/USDC 616,093
+# Every one of them is a 500 (5 bps) tier pool. Only fee-500 tiers are listed:
+# the 100/3000/10000 tiers that exist for these tokens are all depth 0.
+#
+# 2026-09-23 operator 已签字：这 7 个块 mapping_verified/verified=true，
+# valid_until_ms=1792771200000（2026-10-23 16:00 UTC）。USDG/USDC→USDT
+# 不写死在这里，由监控每轮读 OKX 现货中间价。
+# One pool per token on purpose: a non-HK row's quote→USDT conversion is tied
+# to one stablecoin address, and `hk_monitor.pool_state()` refuses a row whose
+# pool pays in a different stablecoin (quote_conversion_wrong_token). USDG/USDC
+# are still 待确认 as a reviewed peg, so `quote_to_usdt` is deliberately absent
+# from the mapping specs below and no US row can reach execution yet.
+# ---------------------------------------------------------------------------
+
+[[tokens]]
+asset = "AAPL"
+name = "Apple"
+stock_symbol = "AAPL"
+listing_country = "US"
+symbol = "wAAPLx"
+address = "0x943bf64d566c32a2bcd41ac92fb63c111cc9de8f"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0xc44bd9c8589026d28d1632d7b86b2efb6cdc8fd2", base_address = "0x943bf64d566c32a2bcd41ac92fb63c111cc9de8f", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:AAPL-USDT-SWAP"]
+shares_per_token = "1.0032690125398187"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "AAPLx"
+token_symbol = "AAPLx"
+token_isin = "CH1436219187"
+underlying_isin = "US0378331005"
+native_address = "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a"
+wrapper_address = "0x943bf64d566c32a2bcd41ac92fb63c111cc9de8f"
+perp_value_currency = "AAPL"
+evidence = "2026-09-22 实测（block 71297141/71297656）：wrapper.asset()=native；wrapper.totalAssets()=855.799813627581776937=native.balanceOf(wrapper)；wrapper.convertToAssets(1e18)=1.0032690125398187=native.multiplier()；totalSupply×multiplier=native reserve（相对误差 6e-17）。→ 1 wAAPLx = 1.0032690125398187 股。价格交叉核对：OKX 现货 XAAPL-USDT 339.72 / AAPL-USDT-SWAP 永续中间价 339.855 → 原生代币≈1.00 股；同一时刻 wAAPLx/USDG 池价 340.9466 = 1.0032×永续。OKX AAPL-USDT-SWAP ctVal=1 ctValCcy=AAPL ctMult=1 → 1 张 = 1 股，lotSz=minSz=0.01。仍待 operator 签 verified/valid_until_ms；quote_to_usdt（USDG→USDT 脱锚核验）未做，故不具可执行性。"
+
+[[tokens]]
+asset = "NVDA"
+name = "NVIDIA"
+stock_symbol = "NVDA"
+listing_country = "US"
+symbol = "wNVDAx"
+address = "0xa8ddb5cd96b5222afe198316e9a57caa642850d5"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x2a2b11730c2b6d99a58034a869dd810d7300a7b2", base_address = "0xa8ddb5cd96b5222afe198316e9a57caa642850d5", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:NVDA-USDT-SWAP"]
+shares_per_token = "1.0017011968010740"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "NVDAx"
+token_symbol = "NVDAx"
+token_isin = "CH1436219195"
+underlying_isin = "US67066G1040"
+native_address = "0xc845b2894dbddd03858fd2d643b4ef725fe0849d"
+wrapper_address = "0xa8ddb5cd96b5222afe198316e9a57caa642850d5"
+perp_value_currency = "NVDA"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.0017011968010740=native.multiplier()；totalAssets=3238.291681242321802561=native.balanceOf(wrapper)。→ 1 wNVDAx = 1.0017011968010740 股。OKX NVDA-USDT-SWAP ctVal=1 ctValCcy=NVDA ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"
+
+[[tokens]]
+asset = "TSLA"
+name = "Tesla"
+stock_symbol = "TSLA"
+listing_country = "US"
+symbol = "wTSLAx"
+address = "0xc3fdbe3a68ee5de461d30415a8165cf9aefe1171"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x6a58944eed3d2074e137eb4e94b302fe4af247a6", base_address = "0xc3fdbe3a68ee5de461d30415a8165cf9aefe1171", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:TSLA-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "TSLAx"
+token_symbol = "TSLAx"
+token_isin = "CH1436219252"
+underlying_isin = "US88160R1014"
+native_address = "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0"
+wrapper_address = "0xc3fdbe3a68ee5de461d30415a8165cf9aefe1171"
+perp_value_currency = "TSLA"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.000000000000000000=native.multiplier()=1；totalAssets=717.548975864933886086=native.balanceOf(wrapper)。→ 1 wTSLAx = 1 股（该名字至今无 corporate action）。OKX TSLA-USDT-SWAP ctVal=1 ctValCcy=TSLA ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"
+
+[[tokens]]
+asset = "MSFT"
+name = "Microsoft"
+stock_symbol = "MSFT"
+listing_country = "US"
+symbol = "wMSFTx"
+address = "0x166fbe68274b6a47e025f4ba17388c539f1fa1d0"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x66187278490a70a8ac26a6e159eb045f82dbfb57", base_address = "0x166fbe68274b6a47e025f4ba17388c539f1fa1d0", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:MSFT-USDT-SWAP"]
+shares_per_token = "1.0059033904787456"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "MSFTx"
+token_symbol = "MSFTx"
+token_isin = "CH1436219203"
+underlying_isin = "US5949181045"
+native_address = "0x5621737f42dae558b81269fcb9e9e70c19aa6b35"
+wrapper_address = "0x166fbe68274b6a47e025f4ba17388c539f1fa1d0"
+perp_value_currency = "MSFT"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.0059033904787456=native.multiplier()；totalAssets=277.190834104120194329=native.balanceOf(wrapper)。→ 1 wMSFTx = 1.0059033904787456 股（七个名字里 corporate action 最大）。早先一轮把这个名字报成「两套等式都对不上」，是异步批量把 totalSupply 与 balanceOf 读在不同区块造成的读数错位，单区块重读后消失。OKX MSFT-USDT-SWAP ctVal=1 ctValCcy=MSFT ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"
+
+[[tokens]]
+asset = "AMZN"
+name = "Amazon"
+stock_symbol = "AMZN"
+listing_country = "US"
+symbol = "wAMZNx"
+address = "0x910cabde3eba7fc1ce64fd14bd680b9f60fa0f90"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x8c1c0d559d1c7ae6ed921cc77abd0f26ac2fe59a", base_address = "0x910cabde3eba7fc1ce64fd14bd680b9f60fa0f90", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:AMZN-USDT-SWAP"]
+shares_per_token = "1"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "AMZNx"
+token_symbol = "AMZNx"
+token_isin = "CH1436219211"
+underlying_isin = "US0231351067"
+native_address = "0x3557ba345b01efa20a1bddc61f573bfd87195081"
+wrapper_address = "0x910cabde3eba7fc1ce64fd14bd680b9f60fa0f90"
+perp_value_currency = "AMZN"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.000000000000000000=native.multiplier()=1；totalAssets=183.235737789622675496=native.balanceOf(wrapper)。→ 1 wAMZNx = 1 股。OKX AMZN-USDT-SWAP ctVal=1 ctValCcy=AMZN ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"
+
+[[tokens]]
+asset = "META"
+name = "Meta"
+stock_symbol = "META"
+listing_country = "US"
+symbol = "wMETAx"
+address = "0xe840946ffebcd66b7c4e95095effafadfa0d0e56"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0xfad9e3c7550768fd4f34bc9cefd365cc193c0fb0", base_address = "0xe840946ffebcd66b7c4e95095effafadfa0d0e56", base_decimals = 18, quote_address = "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8", quote_symbol = "USDG", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:META-USDT-SWAP"]
+shares_per_token = "1.0028515433272898"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "METAx"
+token_symbol = "METAx"
+token_isin = "CH1436219229"
+underlying_isin = "US30303M1027"
+native_address = "0x96702be57cd9777f835117a809c7124fe4ec989a"
+wrapper_address = "0xe840946ffebcd66b7c4e95095effafadfa0d0e56"
+perp_value_currency = "META"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.0028515433272898=native.multiplier()；totalAssets=169.836704031305676125=native.balanceOf(wrapper)。→ 1 wMETAx = 1.0028515433272898 股。OKX META-USDT-SWAP ctVal=1 ctValCcy=META ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"
+
+[[tokens]]
+asset = "GOOGL"
+name = "Alphabet"
+stock_symbol = "GOOGL"
+listing_country = "US"
+symbol = "wGOOGLx"
+address = "0xf8c5308f80e459bb53d9ebe689854d9cbb2caa6f"
+chain_id = "196"
+decimals = 18
+mapping_verified = true
+trade_scan = true
+pools = [
+  { address = "0x9f6273e2669cd812e76788b698374c43637c87c2", base_address = "0xf8c5308f80e459bb53d9ebe689854d9cbb2caa6f", base_decimals = 18, quote_address = "0xb6ceceab302e2e4948951ee7843fc24e92933061", quote_symbol = "USDC", quote_decimals = 6, fee = 500 },
+]
+[tokens.mappings."okx:GOOGL-USDT-SWAP"]
+shares_per_token = "1.0023772500603487"
+native_shares_per_unit = "1"
+shares_per_perp_unit = "1"
+perp_contract_multiplier = "1"
+verified = true
+valid_until_ms = 1792771200000
+issuer_symbol = "GOOGLx"
+token_symbol = "GOOGLx"
+token_isin = "CH1436219237"
+underlying_isin = "US02079K3059"
+native_address = "0xe92f673ca36c5e2efd2de7628f815f84807e803f"
+wrapper_address = "0xf8c5308f80e459bb53d9ebe689854d9cbb2caa6f"
+perp_value_currency = "GOOGL"
+evidence = "2026-09-22 实测：wrapper.convertToAssets(1e18)=1.0023772500603487=native.multiplier()；totalAssets=793.680681400030701485=native.balanceOf(wrapper)。→ 1 wGOOGLx = 1.0023772500603487 股。OKX GOOGL-USDT-SWAP ctVal=1 ctValCcy=GOOGL ctMult=1、lotSz=minSz=0.01。待 operator 签 verified/valid_until_ms。"

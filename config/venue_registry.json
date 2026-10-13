@@ -1,0 +1,3851 @@
+[
+  {
+    "asset": "AAPL",
+    "chain": {
+      "asset": "AAPL",
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "1",
+      "instrument_id": "AAPLUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "AAPL",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "20000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1775483400000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "AAPLUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "AAPLUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AAPL",
+    "chain": {
+      "asset": "AAPL",
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "0.01",
+      "instrument_id": "AAPL_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789115716,
+          "contract_type": "stocks",
+          "create_time": 1788348159,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "331.067",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "331",
+          "launch_time": 1788415200,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 199,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "331.02",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "AAPL_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 21625919,
+          "orders_limit": 100,
+          "position_size": 343923,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 158,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 230988,
+          "trade_size": 22134656,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AAPL",
+    "chain": {
+      "asset": "AAPL",
+      "chain_id": "196",
+      "contract_address": "0x9d275685dc284c8eb1c79f6aba7a63dc75ec890a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AAPLx",
+      "underlying_symbol": "AAPL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AAPL",
+      "contract_multiplier": "1",
+      "instrument_id": "AAPL-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "AAPL",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "AAPL-USDT",
+          "instId": "AAPL-USDT-SWAP",
+          "instIdCode": 251760,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1772612100000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "640",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "640",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "AAPL-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "chain": {
+      "asset": "AMZN",
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "1",
+      "instrument_id": "AMZNUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "AMZN",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "20000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1770648000000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "AMZNUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "AMZNUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "chain": {
+      "asset": "AMZN",
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "0.01",
+      "instrument_id": "AMZN_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789376179,
+          "contract_type": "stocks",
+          "create_time": 1788167131,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "251.963",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "251.94",
+          "launch_time": 1788170400,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 99,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "251.96",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "AMZN_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 14611256,
+          "orders_limit": 100,
+          "position_size": 84079,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 52,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 83365,
+          "trade_size": 3053623,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "AMZN",
+    "chain": {
+      "asset": "AMZN",
+      "chain_id": "196",
+      "contract_address": "0x3557ba345b01efa20a1bddc61f573bfd87195081",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "AMZNx",
+      "underlying_symbol": "AMZN"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "AMZN",
+      "contract_multiplier": "1",
+      "instrument_id": "AMZN-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "AMZN",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "AMZN-USDT",
+          "instId": "AMZN-USDT-SWAP",
+          "instIdCode": 250827,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1772091000000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "650",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "650",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "AMZN-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "chain": {
+      "asset": "GOOGL",
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "1",
+      "instrument_id": "GOOGLUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "GOOGL",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "20000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1774536600000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "GOOGLUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "GOOGLUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "chain": {
+      "asset": "GOOGL",
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "0.01",
+      "instrument_id": "GOOGL_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789376333,
+          "contract_type": "stocks",
+          "create_time": 1788348261,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "345.415",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "345.46",
+          "launch_time": 1788415200,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 302,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "345.42",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "GOOGL_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 21766090,
+          "orders_limit": 100,
+          "position_size": 460785,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 94,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 207824,
+          "trade_size": 14744424,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "GOOGL",
+    "chain": {
+      "asset": "GOOGL",
+      "chain_id": "196",
+      "contract_address": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "GOOGLx",
+      "underlying_symbol": "GOOGL"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "GOOGL",
+      "contract_multiplier": "1",
+      "instrument_id": "GOOGL-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "GOOGL",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "GOOGL-USDT",
+          "instId": "GOOGL-USDT-SWAP",
+          "instIdCode": 251758,
+          "instType": "SWAP",
+          "lever": "50",
+          "listTime": "1772610300000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "470",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "470",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "GOOGL-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "KUAISHOU",
+    "chain": {
+      "asset": "KUAISHOU",
+      "chain_id": "196",
+      "contract_address": "0x096369b9b197bcbf669a3bc827aa119d80d891e4",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wKUAIx",
+      "underlying_symbol": "1024"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "KUAISHOU",
+      "contract_multiplier": "1",
+      "instrument_id": "KUAISHOUUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "KUAISHOU",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.00100",
+              "tickSize": "0.00100"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "700000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "30000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1786413600000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "KUAISHOUUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "KUAISHOUUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "KUAISHOU",
+    "chain": {
+      "asset": "KUAISHOU",
+      "chain_id": "196",
+      "contract_address": "0x096369b9b197bcbf669a3bc827aa119d80d891e4",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wKUAIx",
+      "underlying_symbol": "1024"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "KUAISHOU",
+      "contract_multiplier": "1",
+      "instrument_id": "KUAISHOU_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789354382,
+          "contract_type": "stocks",
+          "create_time": 1776053030,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.0002",
+          "in_delisting": false,
+          "index_price": "3.8264",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "3.825",
+          "launch_time": 1776060000,
+          "leverage_max": "25",
+          "leverage_min": "1",
+          "long_users": 57,
+          "maintenance_rate": "0.02",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "3.826",
+          "mark_price_round": "0.001",
+          "mark_type": "index",
+          "market_order_size_max": "40000",
+          "market_order_slip_ratio": "0.015",
+          "name": "KUAISHOU_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.001",
+          "order_size_max": 60000,
+          "order_size_min": 1,
+          "orderbook_id": 778292301,
+          "orders_limit": 100,
+          "position_size": 47972,
+          "quanto_multiplier": "1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 29,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 259207,
+          "trade_size": 635327,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MEITUAN",
+    "chain": {
+      "asset": "MEITUAN",
+      "chain_id": "196",
+      "contract_address": "0xad1b65c8556957cf23d1b5e9accdc449b415fa97",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wMEITx",
+      "underlying_symbol": "3690"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "MEITUAN",
+      "contract_multiplier": "1",
+      "instrument_id": "MEITUANUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "MEITUAN",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "300000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "10000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1786413900000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "MEITUANUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "MEITUANUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MEITUAN",
+    "chain": {
+      "asset": "MEITUAN",
+      "chain_id": "196",
+      "contract_address": "0xad1b65c8556957cf23d1b5e9accdc449b415fa97",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wMEITx",
+      "underlying_symbol": "3690"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "MEITUAN",
+      "contract_multiplier": "0.1",
+      "instrument_id": "MEITUAN_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789354382,
+          "contract_type": "stocks",
+          "create_time": 1776052718,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.0002",
+          "in_delisting": false,
+          "index_price": "9.5859",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "9.625",
+          "launch_time": 1776060000,
+          "leverage_max": "25",
+          "leverage_min": "1",
+          "long_users": 36,
+          "maintenance_rate": "0.02",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "9.625",
+          "mark_price_round": "0.001",
+          "mark_type": "index",
+          "market_order_size_max": "200000",
+          "market_order_slip_ratio": "0.015",
+          "name": "MEITUAN_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.001",
+          "order_size_max": 300000,
+          "order_size_min": 1,
+          "orderbook_id": 312658898,
+          "orders_limit": 100,
+          "position_size": 88012,
+          "quanto_multiplier": "0.1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 32,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 321665,
+          "trade_size": 2216680,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "chain": {
+      "asset": "META",
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "META",
+      "contract_multiplier": "1",
+      "instrument_id": "METAUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "META",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "4000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "700",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1774535400000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "METAUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "METAUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "chain": {
+      "asset": "META",
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "META",
+      "contract_multiplier": "0.01",
+      "instrument_id": "META_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789116204,
+          "contract_type": "stocks",
+          "create_time": 1788401720,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "659.299",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "659.43",
+          "launch_time": 1788415200,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 99,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "659.29",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "META_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 21974460,
+          "orders_limit": 100,
+          "position_size": 14928,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 78,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 77271,
+          "trade_size": 954659,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "META",
+    "chain": {
+      "asset": "META",
+      "chain_id": "196",
+      "contract_address": "0x96702be57cd9777f835117a809c7124fe4ec989a",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "METAx",
+      "underlying_symbol": "META"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "META",
+      "contract_multiplier": "1",
+      "instrument_id": "META-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "META",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "META-USDT",
+          "instId": "META-USDT-SWAP",
+          "instIdCode": 251761,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1772613000000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "280",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "280",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "META-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "chain": {
+      "asset": "MSFT",
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "1",
+      "instrument_id": "MSFTUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "MSFT",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "20000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1776691800000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "MSFTUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "MSFTUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "chain": {
+      "asset": "MSFT",
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "0.01",
+      "instrument_id": "MSFT_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1788234122,
+          "contract_type": "stocks",
+          "create_time": 1769670077,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "499.407",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "499.66",
+          "launch_time": 1769684400,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 159,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "499.66",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "MSFT_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 436555032,
+          "orders_limit": 100,
+          "position_size": 328906,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 140,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 2031981,
+          "trade_size": 56556146,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "MSFT",
+    "chain": {
+      "asset": "MSFT",
+      "chain_id": "196",
+      "contract_address": "0x5621737f42dae558b81269fcb9e9e70c19aa6b35",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "MSFTx",
+      "underlying_symbol": "MSFT"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "MSFT",
+      "contract_multiplier": "1",
+      "instrument_id": "MSFT-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "MSFT",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "MSFT-USDT",
+          "instId": "MSFT-USDT-SWAP",
+          "instIdCode": 251759,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1772611200000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "530",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "530",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "MSFT-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "chain": {
+      "asset": "NVDA",
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "1",
+      "instrument_id": "NVDAUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "NVDA",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "30000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "3000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1774536000000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "NVDAUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "NVDAUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "chain": {
+      "asset": "NVDA",
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "0.01",
+      "instrument_id": "NVDA_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789116220,
+          "contract_type": "stocks",
+          "create_time": 1788348415,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "211.531",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "211.58",
+          "launch_time": 1788415200,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 607,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "211.57",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "NVDA_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 27296983,
+          "orders_limit": 100,
+          "position_size": 1515177,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 237,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 309234,
+          "trade_size": 46548887,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "NVDA",
+    "chain": {
+      "asset": "NVDA",
+      "chain_id": "196",
+      "contract_address": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "NVDAx",
+      "underlying_symbol": "NVDA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "NVDA",
+      "contract_multiplier": "1",
+      "instrument_id": "NVDA-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "NVDA",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "NVDA-USDT",
+          "instId": "NVDA-USDT-SWAP",
+          "instIdCode": 251755,
+          "instType": "SWAP",
+          "lever": "50",
+          "listTime": "1772607600000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "1400",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "1400",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "NVDA-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "chain": {
+      "asset": "POPMART",
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "1",
+      "instrument_id": "POPMARTUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "POPMART",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "200000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "10000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1784773800000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "POPMARTUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "POPMARTUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "chain": {
+      "asset": "POPMART",
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "0.1",
+      "instrument_id": "POPMART_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789354401,
+          "contract_type": "stocks",
+          "create_time": 1782454745,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "19.4969",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "19.519",
+          "launch_time": 1782457200,
+          "leverage_max": "20",
+          "leverage_min": "1",
+          "long_users": 29,
+          "maintenance_rate": "0.025",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "19.516",
+          "mark_price_round": "0.001",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "POPMART_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.001",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 44530504,
+          "orders_limit": 100,
+          "position_size": 72142,
+          "quanto_multiplier": "0.1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "2000000",
+          "risk_limit_step": "1995000",
+          "short_users": 35,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 110579,
+          "trade_size": 1096636,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "POPMART",
+    "chain": {
+      "asset": "POPMART",
+      "chain_id": "196",
+      "contract_address": "0x4ebf5fd25b02022afad96e2fa25da54a246fded0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wPOPMTx",
+      "underlying_symbol": "9992"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "POPMART",
+      "contract_multiplier": "1",
+      "instrument_id": "POPMART-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.1",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "POPMART",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.04",
+          "instCategory": "3",
+          "instFamily": "POPMART-USDT",
+          "instId": "POPMART-USDT-SWAP",
+          "instIdCode": 406273,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1786519800000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.1",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "660",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "660",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.1",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "POPMART-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "SHEIN",
+    "chain": {
+      "asset": "SHEIN",
+      "chain_id": "196",
+      "contract_address": "0xff637d2d435d6745df3faf61272b1216e7e8b727",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wSHEINx",
+      "underlying_symbol": "625"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "SHEIN",
+      "contract_multiplier": "1",
+      "instrument_id": "SHEIN_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789377914,
+          "contract_type": "stocks",
+          "create_time": 1787905194,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "1000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.005",
+          "in_delisting": false,
+          "index_price": "4.8321",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "4.874",
+          "launch_time": 1787905194,
+          "leverage_max": "50",
+          "leverage_min": "1",
+          "long_users": 64,
+          "maintenance_rate": "0.01",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "4.837",
+          "mark_price_round": "0.001",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "SHEIN_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.001",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 26580160,
+          "orders_limit": 100,
+          "position_size": 3492,
+          "quanto_multiplier": "1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 40,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 20709,
+          "trade_size": 280268,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "SHEIN",
+    "chain": {
+      "asset": "SHEIN",
+      "chain_id": "196",
+      "contract_address": "0xff637d2d435d6745df3faf61272b1216e7e8b727",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wSHEINx",
+      "underlying_symbol": "625"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "SHEIN",
+      "contract_multiplier": "1",
+      "instrument_id": "SHEIN-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "SHEIN",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.04",
+          "instCategory": "3",
+          "instFamily": "SHEIN-USDT",
+          "instId": "SHEIN-USDT-SWAP",
+          "instIdCode": 441312,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1788332400000",
+          "longPosRemainingQuota": "",
+          "lotSz": "1",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "20000",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "20000",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "1",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "SHEIN-USDT",
+          "upcChg": [
+            {
+              "effTime": "1789697520000",
+              "newValue": "0.001",
+              "param": "tickSz"
+            }
+          ]
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "chain": {
+      "asset": "TENCENT",
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "1",
+      "instrument_id": "HK0700USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "HK0700",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "30000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1784689200000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "HK0700USDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "HK0700USDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "chain": {
+      "asset": "TENCENT",
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "1",
+      "instrument_id": "TENCENTUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "TENCENT",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "70000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "4000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1784689800000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "TENCENTUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "TENCENTUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "chain": {
+      "asset": "TENCENT",
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "0.01",
+      "instrument_id": "TENCENTHKD_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789354389,
+          "contract_type": "stocks",
+          "create_time": 1784621808,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.0002",
+          "in_delisting": false,
+          "index_price": "438.7",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "438.38",
+          "launch_time": 1784622600,
+          "leverage_max": "20",
+          "leverage_min": "1",
+          "long_users": 30,
+          "maintenance_rate": "0.025",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "438.5",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "TENCENTHKD_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 74620360,
+          "orders_limit": 100,
+          "position_size": 31960,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "2000000",
+          "risk_limit_step": "1995000",
+          "short_users": 9,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 13372,
+          "trade_size": 226566,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TENCENT",
+    "chain": {
+      "asset": "TENCENT",
+      "chain_id": "196",
+      "contract_address": "0x41333df9e7639188bbfca5522dc4844398af9f9e",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wTCENTx",
+      "underlying_symbol": "0700"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TENCENT",
+      "contract_multiplier": "0.1",
+      "instrument_id": "TENCENT_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789435339,
+          "contract_type": "stocks",
+          "create_time": 1776052342,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "55.994",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "56.02",
+          "launch_time": 1776060000,
+          "leverage_max": "25",
+          "leverage_min": "1",
+          "long_users": 158,
+          "maintenance_rate": "0.02",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "56.01",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "80000",
+          "market_order_slip_ratio": "0.015",
+          "name": "TENCENT_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 100000,
+          "order_size_min": 1,
+          "orderbook_id": 160547627,
+          "orders_limit": 100,
+          "position_size": 137886,
+          "quanto_multiplier": "0.1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 64,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 824713,
+          "trade_size": 4388134,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "chain": {
+      "asset": "TSLA",
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "1",
+      "instrument_id": "TSLAUSDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "TSLA",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "100000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "20000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "2000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1769610600000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "TSLAUSDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "TSLAUSDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "chain": {
+      "asset": "TSLA",
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "0.01",
+      "instrument_id": "TSLA_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789116327,
+          "contract_type": "stocks",
+          "create_time": 1788348228,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "357.564",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "357.61",
+          "launch_time": 1788415200,
+          "leverage_max": "100",
+          "leverage_min": "1",
+          "long_users": 357,
+          "maintenance_rate": "0.005",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "357.68",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "TSLA_USDT",
+          "order_price_deviate": "0.18",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 29826294,
+          "orders_limit": 100,
+          "position_size": 340412,
+          "quanto_multiplier": "0.01",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "6000000",
+          "risk_limit_step": "5995000",
+          "short_users": 139,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 206050,
+          "trade_size": 8679879,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "TSLA",
+    "chain": {
+      "asset": "TSLA",
+      "chain_id": "196",
+      "contract_address": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "TSLAx",
+      "underlying_symbol": "TSLA"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "TSLA",
+      "contract_multiplier": "1",
+      "instrument_id": "TSLA-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "TSLA",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.02",
+          "instCategory": "3",
+          "instFamily": "TSLA-USDT",
+          "instId": "TSLA-USDT-SWAP",
+          "instIdCode": 250628,
+          "instType": "SWAP",
+          "lever": "25",
+          "listTime": "1772010000000",
+          "longPosRemainingQuota": "",
+          "lotSz": "0.01",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "580",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "580",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "0.01",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.01",
+          "tradeQuoteCcyList": [],
+          "uly": "TSLA-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "chain": {
+      "asset": "XIAOMI",
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "HK1810USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "0.01",
+      "metadata": {
+        "raw_contract": {
+          "baseAsset": "HK1810",
+          "baseAssetPrecision": 8,
+          "contractType": "TRADIFI_PERPETUAL",
+          "deliveryDate": 4133404800000,
+          "filters": [
+            {
+              "filterType": "PRICE_FILTER",
+              "maxPrice": "20000",
+              "minPrice": "0.01000",
+              "tickSize": "0.01000"
+            },
+            {
+              "filterType": "LOT_SIZE",
+              "maxQty": "150000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MARKET_LOT_SIZE",
+              "maxQty": "8000",
+              "minQty": "0.01",
+              "stepSize": "0.01"
+            },
+            {
+              "filterType": "MAX_NUM_ORDERS",
+              "limit": 200
+            },
+            {
+              "filterType": "MIN_NOTIONAL",
+              "notional": "5"
+            },
+            {
+              "filterType": "PERCENT_PRICE",
+              "multiplierDecimal": "4",
+              "multiplierDown": "0.9700",
+              "multiplierUp": "1.0300"
+            },
+            {
+              "filterType": "POSITION_RISK_CONTROL",
+              "positionControlSide": "NONE"
+            }
+          ],
+          "liquidationFee": "0.015000",
+          "maintMarginPercent": "2.5000",
+          "marginAsset": "USDT",
+          "marketTakeBound": "0.03",
+          "maxMoveOrderLimit": 10000,
+          "onboardDate": 1784689500000,
+          "orderTypes": [
+            "LIMIT",
+            "MARKET",
+            "STOP",
+            "STOP_MARKET",
+            "TAKE_PROFIT",
+            "TAKE_PROFIT_MARKET",
+            "TRAILING_STOP_MARKET"
+          ],
+          "pair": "HK1810USDT",
+          "permissionSets": [
+            "GRID",
+            "COPY",
+            "RPI",
+            "DCA",
+            "PSB"
+          ],
+          "pricePrecision": 5,
+          "quantityPrecision": 2,
+          "quoteAsset": "USDT",
+          "quotePrecision": 8,
+          "requiredMarginPercent": "5.0000",
+          "status": "TRADING",
+          "symbol": "HK1810USDT",
+          "timeInForce": [
+            "GTC",
+            "IOC",
+            "FOK",
+            "GTX",
+            "GTD"
+          ],
+          "triggerProtect": "0.0300",
+          "underlyingSubType": [
+            "TradFi"
+          ],
+          "underlyingType": "HK_EQUITY"
+        }
+      },
+      "min_size": "0.01",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://fapi.binance.com/fapi/v1/exchangeInfo",
+      "state": "live",
+      "venue": "binance"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "chain": {
+      "asset": "XIAOMI",
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "0.1",
+      "instrument_id": "XIAOMIHKD_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789354394,
+          "contract_type": "stocks",
+          "create_time": 1784621869,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.0002",
+          "in_delisting": false,
+          "index_price": "26.51",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "26.36",
+          "launch_time": 1784622600,
+          "leverage_max": "20",
+          "leverage_min": "1",
+          "long_users": 108,
+          "maintenance_rate": "0.025",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "26.36",
+          "mark_price_round": "0.01",
+          "mark_type": "index",
+          "market_order_size_max": "800000",
+          "market_order_slip_ratio": "0.015",
+          "name": "XIAOMIHKD_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.01",
+          "order_size_max": 1000000,
+          "order_size_min": 1,
+          "orderbook_id": 15940259,
+          "orders_limit": 100,
+          "position_size": 102954,
+          "quanto_multiplier": "0.1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "2000000",
+          "risk_limit_step": "1995000",
+          "short_users": 29,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 528059,
+          "trade_size": 8152681,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "chain": {
+      "asset": "XIAOMI",
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "XIAOMI_USDT",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "config_change_time": 1789435287,
+          "contract_type": "stocks",
+          "create_time": 1776052766,
+          "cross_leverage_default": "10",
+          "enable_bonus": true,
+          "enable_circuit_breaker": false,
+          "enable_credit": true,
+          "enable_decimal": false,
+          "funding_cap_ratio": "0.75",
+          "funding_impact_value": "5000",
+          "funding_interval": 28800,
+          "funding_next_apply": 1789488000,
+          "funding_offset": 0,
+          "funding_rate": "0",
+          "funding_rate_indicative": "0",
+          "funding_rate_limit": "0.01",
+          "in_delisting": false,
+          "index_price": "3.374",
+          "interest_rate": "0",
+          "is_pre_market": false,
+          "last_price": "3.38",
+          "launch_time": 1776060000,
+          "leverage_max": "25",
+          "leverage_min": "1",
+          "long_users": 202,
+          "maintenance_rate": "0.02",
+          "maker_fee_rate": "-0.0001",
+          "mark_price": "3.374",
+          "mark_price_round": "0.001",
+          "mark_type": "index",
+          "market_order_size_max": "55000",
+          "market_order_slip_ratio": "0.015",
+          "name": "XIAOMI_USDT",
+          "order_price_deviate": "0.05",
+          "order_price_round": "0.001",
+          "order_size_max": 83000,
+          "order_size_min": 1,
+          "orderbook_id": 151601865,
+          "orders_limit": 100,
+          "position_size": 155468,
+          "quanto_multiplier": "1",
+          "ref_discount_rate": "0",
+          "ref_rebate_rate": "0.2",
+          "risk_limit_base": "5000",
+          "risk_limit_max": "10000000",
+          "risk_limit_step": "9995000",
+          "short_users": 56,
+          "status": "trading",
+          "taker_fee_rate": "0.00075",
+          "trade_id": 1090065,
+          "trade_size": 15283503,
+          "type": "direct",
+          "voucher_leverage": "0"
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://api.gateio.ws/api/v4/futures/usdt/contracts",
+      "state": "live",
+      "venue": "gate"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  },
+  {
+    "asset": "XIAOMI",
+    "chain": {
+      "asset": "XIAOMI",
+      "chain_id": "196",
+      "contract_address": "0x076cf393e701839fc7a5832d2c68aafa235682ae",
+      "decimals": 18,
+      "observed_at": "",
+      "source": "/home/operator/Documents/arb/config/hk_monitor.toml",
+      "symbol": "wXIAOx",
+      "underlying_symbol": "1810"
+    },
+    "evidence": {},
+    "instrument": {
+      "base_underlying": "XIAOMI",
+      "contract_multiplier": "1",
+      "instrument_id": "XIAOMI-USDT-SWAP",
+      "instrument_type": "SWAP",
+      "lot_size": "1",
+      "metadata": {
+        "raw_contract": {
+          "alias": "",
+          "auctionEndTime": "",
+          "baseCcy": "",
+          "category": "1",
+          "contTdSwTime": "",
+          "ctMult": "1",
+          "ctType": "linear",
+          "ctVal": "1",
+          "ctValCcy": "XIAOMI",
+          "expTime": "",
+          "floatPxLmtPct": "0.02",
+          "freq": "",
+          "futureSettlement": false,
+          "groupId": "4",
+          "initPxLmtPct": "0.04",
+          "instCategory": "3",
+          "instFamily": "XIAOMI-USDT",
+          "instId": "XIAOMI-USDT-SWAP",
+          "instIdCode": 406280,
+          "instType": "SWAP",
+          "lever": "20",
+          "listTime": "1786520700000",
+          "longPosRemainingQuota": "",
+          "lotSz": "1",
+          "maxIcebergSz": "100000000.0000000000000000",
+          "maxLmtAmt": "20000000",
+          "maxLmtSz": "100000000",
+          "maxMktAmt": "",
+          "maxMktSz": "9300",
+          "maxPlatOICoinLmt": "",
+          "maxPlatOILmt": "",
+          "maxPxLmtPct": "0.05",
+          "maxStopSz": "9300",
+          "maxTriggerSz": "100000000.0000000000000000",
+          "maxTwapSz": "100000000.0000000000000000",
+          "method": "",
+          "minSz": "1",
+          "openType": "fix_price",
+          "optType": "",
+          "posLmtAmt": "350000",
+          "posLmtPct": "25",
+          "preMktSwTime": "",
+          "quoteCcy": "",
+          "rpiMinLevel": "2",
+          "rpiMinPxBand": "20",
+          "ruleType": "normal",
+          "seriesId": "",
+          "settleCcy": "USDT",
+          "shortPosRemainingQuota": "",
+          "state": "live",
+          "stk": "",
+          "tickSz": "0.001",
+          "tradeQuoteCcyList": [],
+          "uly": "XIAOMI-USDT",
+          "upcChg": []
+        }
+      },
+      "min_size": "1",
+      "observed_at": "2026-09-15T08:33:22.455694+00:00",
+      "quote": "USDT",
+      "settle_currency": "USDT",
+      "source": "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
+      "state": "live",
+      "venue": "okx"
+    },
+    "verification_basis": [
+      "CEX public instrument metadata observed",
+      "chain identity loaded from config; underlying equivalence pending review"
+    ],
+    "verified": false
+  }
+]

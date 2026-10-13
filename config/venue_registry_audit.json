@@ -1,0 +1,496 @@
+[
+  {
+    "api_present": true,
+    "asset": "AAPL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AAPLUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "AAPL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AAPL_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "AAPL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AAPL-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "AMZN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AMZNUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "AMZN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AMZN_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "AMZN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "AMZN-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "GOOGL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "GOOGLUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "GOOGL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "GOOGL_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "GOOGL",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "GOOGL-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "KUAISHOU",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "KUAISHOUUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "KUAISHOU",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "KUAISHOU_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "MEITUAN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "MEITUANUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "MEITUAN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "MEITUAN_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "META",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "METAUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "META",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "META_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "META",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "META-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "MSFT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "MSFTUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "MSFT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "MSFT_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "MSFT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "MSFT-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "NVDA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "NVDAUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "NVDA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "NVDA_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "NVDA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "NVDA-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "POPMART",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "POPMARTUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "POPMART",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "POPMART_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "POPMART",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "POPMART-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "SHEIN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "SHEIN_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "SHEIN",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "SHEIN-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TENCENT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "HK0700USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TENCENT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TENCENTUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TENCENT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TENCENTHKD_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TENCENT",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TENCENT_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TSLA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TSLAUSDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TSLA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TSLA_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "TSLA",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "TSLA-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "XIAOMI",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "HK1810USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "binance",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "XIAOMI",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "XIAOMIHKD_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "XIAOMI",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "XIAOMI_USDT",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "gate",
+    "verified": false
+  },
+  {
+    "api_present": true,
+    "asset": "XIAOMI",
+    "chain_identity_complete": true,
+    "executable_shape": true,
+    "instrument_id": "XIAOMI-USDT-SWAP",
+    "reasons": [
+      "mapping_not_verified"
+    ],
+    "underlying_name_match": true,
+    "venue": "okx",
+    "verified": false
+  }
+]

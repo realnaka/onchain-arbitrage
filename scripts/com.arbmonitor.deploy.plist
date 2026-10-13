@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Installed against ~/arb-runtime, which is outside ~/Documents.
+       launchd cannot read ~/Documents (see com.arbmonitor.backup.plist).
+       Load with:
+         launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.arbmonitor.deploy.plist
+       after copying this file there, or bootstrap the copy in the runtime checkout. -->
+  <key>Label</key>
+  <string>com.arbmonitor.deploy</string>
+  <key>WorkingDirectory</key>
+  <string>/home/operator/arb-runtime</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/home/operator/arb-runtime/scripts/deploy-from-github.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/home/operator/arb-runtime/data/deploy-from-github.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/home/operator/arb-runtime/data/deploy-from-github.err.log</string>
+</dict>
+</plist>
